@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Firewall — muro horizontal con llama central</title>
+  <desc id="desc">Muro de ladrillos horizontal de mayor altura visual y llama integrada en el centro. SVG editable de la familia premium con tres colores parametrizables.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <defs>
+    <path id="wall-outer" d="M111 119 H913 C949 119 973 145 973 180 V844 C973 879 949 905 913 905 H111 C75 905 51 879 51 844 V180 C51 145 75 119 111 119 Z"/>
+    <path id="wall-white-border" d="M114 145 H910 C934 145 947 160 947 182 V842 C947 864 934 879 910 879 H114 C90 879 77 864 77 842 V182 C77 160 90 145 114 145 Z"/>
+    <path id="wall-inner-field" d="M113 168 H911 C919 168 924 173 924 182 V842 C924 851 919 856 911 856 H113 C105 856 100 851 100 842 V182 C100 173 105 168 113 168 Z"/>
+    <clipPath id="wall-content-clip"><use href="#wall-inner-field"/></clipPath>
+  </defs>
+
+  <g id="wall-body" aria-label="Muro horizontal, doble contorno y superficie dividida">
+    <use id="wall-outer-navy" href="#wall-outer" class="primary"/>
+    <use id="wall-white-divider" href="#wall-white-border" class="contrast"/>
+    <use id="wall-cyan-field" href="#wall-inner-field" class="secondary"/>
+    <g id="wall-right-navy-field" clip-path="url(#wall-content-clip)">
+      <path class="primary" d="M512 0 H1024 V1024 H512 Z"/>
+    </g>
+  </g>
+
+  <g id="brick-pattern" clip-path="url(#wall-content-clip)" aria-label="Hiladas de ladrillos trabados">
+    <path id="horizontal-mortar" class="contrast" d="M100 325 H924 V349 H100 Z M100 493 H924 V517 H100 Z M100 661 H924 V685 H100 Z"/>
+    <path id="first-row-joints" class="contrast" d="M296 168 H320 V325 H296 Z M704 168 H728 V325 H704 Z"/>
+    <path id="second-row-joints" class="contrast" d="M192 349 H216 V493 H192 Z M408 349 H432 V493 H408 Z M592 349 H616 V493 H592 Z M808 349 H832 V493 H808 Z"/>
+    <path id="third-row-joints" class="contrast" d="M296 517 H320 V661 H296 Z M704 517 H728 V661 H704 Z"/>
+    <path id="fourth-row-joints" class="contrast" d="M192 685 H216 V856 H192 Z M408 685 H432 V856 H408 Z M592 685 H616 V856 H592 Z M808 685 H832 V856 H808 Z"/>
+  </g>
+
+  <g id="central-flame" aria-label="Llama centrada, sin medallón circular">
+    <path id="flame-white-profile" class="contrast" d="M520 296 C543 329 570 373 567 416 C589 397 612 369 617 345 C658 408 684 465 684 528 C684 633 609 718 512 718 C415 718 340 634 340 531 C340 461 375 407 423 366 C429 417 449 453 481 469 C472 402 492 342 520 296 Z"/>
+    <path id="flame-navy-core" class="primary" d="M522 358 C543 396 550 431 544 463 C567 447 591 426 601 400 C629 447 654 485 654 536 C654 622 591 689 512 689 C432 689 370 620 370 535 C370 491 390 454 412 429 C421 472 446 502 490 524 C483 460 499 410 522 358 Z"/>
+    <path id="flame-cyan-heart" class="secondary" d="M515 502 C532 523 547 548 547 577 C547 602 532 627 512 627 C487 627 472 604 472 579 C472 557 482 535 496 516 C498 537 504 546 509 550 C507 530 510 516 515 502 Z"/>
+  </g>
+</svg>
