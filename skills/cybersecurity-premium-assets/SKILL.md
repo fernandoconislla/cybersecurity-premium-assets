@@ -15,7 +15,7 @@ description: Use when generating, editing, validating, or saving premium cyberse
 2. Exactly three global CSS tokens in `<style>`: `--PRIMARY: #092B60;`, `--SECONDARY: #38BDF8;`, `--CONTRAST: #FFFFFF;`. All painted shapes use `.primary`, `.secondary`, or `.contrast` classes reading `var(--TOKEN)`. Values may later change for rebranding; the roles must not change.
 3. No fourth colors, gradients, shadows, filters, patterns, opacity effects, raster images, external artwork, or background rectangle. Whites must be internal and enclosed by stronger colored surfaces for visibility on white backgrounds.
 4. Main subject's dominant visible dimension ≈ 90% (922 units, tolerance ±2%). Preserve aspect ratio, center *both* axes; keep equal geometric margins on the minor dimension and avoid clipping. Optical offsets of up to 12 units require justification.
-5. Use **all four approved, immutable references**: `assets/escudo-candado.svg` (shield/lock), `assets/base-de-datos.svg` (database V2), `assets/servidor.svg` (server), and `assets/firewall.svg` (firewall V3). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
+5. Use **all five approved, immutable references**: `assets/escudo-candado.svg` (shield/lock), `assets/base-de-datos.svg` (database V2), `assets/servidor.svg` (server), `assets/firewall.svg` (firewall V3), and `assets/api-key.svg` (API KEY V3). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
 6. Geometry must consist of independently editable paths/shapes, logically grouped and identified. Never modify **any approved reference** as a side effect. Design new assets as fresh files.
 7. Verify at 1024, 128 and 64 pixels on white and visually compare side by side with **all** approved references. The icon must read as the named concept without labels.
 
@@ -48,6 +48,7 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 - `assets/base-de-datos.svg` — Approved database V2; baseline for three connected cylindrical levels, restrained curved separators that reach lateral edges, simplified upper ellipse, no floating oval bands, no decorative three-dot indicator.
 - `assets/servidor.svg` — Approved server asset 03; baseline for clean rectangular geometry, three equally structured frontal modules, aligned ventilation slots and status circles, navy/white chassis contour, and consistent cyan/navy split.
 - `assets/firewall.svg` — Approved firewall asset 04, version V3; a wide horizontal brick wall scaled to use available height, staggered mortar joints, centered flame directly over the wall with no medallion, enclosing navy/white double contour and a split cyan/navy field. Preserve this design, not the earlier tall panel (V1) or circular-medallion concept (V2).
+- `assets/api-key.svg` — Approved API KEY asset 05, version V3; diagonally oriented key filling the square canvas, circular split-color head with horizontal legible **API** letters converted into vector paths, a simplified shaft with clean two-tooth geometry, navy/white outline system. Preserve the diagonal with horizontal lettering; do not restore code angle-bracket glyphs or unnecessarily detailed teeth.
 
 All approved references are equally authoritative examples of the same family, not interchangeable templates. The approved database geometry must not be changed by requests for unrelated concepts.
 
@@ -55,11 +56,14 @@ All approved references are equally authoritative examples of the same family, n
 - `{"nombre":"Base de datos"}` → use the approved `assets/base-de-datos.svg` as the existing asset; do **not** regenerate a different candidate without a requested revision.
 - `{"nombre":"Servidor"}` → reuse approved `assets/servidor.svg`; do not regenerate without a requested revision.
 - `{"nombre":"Firewall"}` → reuse approved `assets/firewall.svg`; do not regenerate or substitute a vertical panel without a requested revision.
+- `{"nombre":"API KEY"}` → reuse approved `assets/api-key.svg`; do not regenerate without an explicit revision request.
 - `{"nombre":"Firewall","descripcion":"Equipo de red con puertos visibles"}` → generate a NEW SVG using only the user-supplied parameters and comparing against all approved assets.
 
 **Design lesson from database V1 → V2:** an identifiable silhouette alone does not pass review. If separators float or decoration competes with the primary concept, simplify and reconnect the geometry before presenting a candidate.
 
 **Design lesson from firewall V1 → V3:** correct conventional orientation is essential: a firewall is typically represented by a horizontal brick wall, not a narrow vertical panel. The wall should fill the available canvas proportionally rather than leave excessive vertical negative space, while preserving the dominant-dimension normalization rule. The flame should sit directly at the center of the wall, not inside an unrequested circular badge. Assess silhouette, negative space, placement and concept-specific composition before approving.
+
+**Design lesson from API KEY V1 → V3:** keep established semantic imagery but prioritize clear textual meaning when the user specifies it (API rather than a generic code symbol). Diagonal orientation can significantly improve square-canvas utilization; maintain horizontal letter baselines for legibility even when the object is diagonal. Simplify internal teeth and microdetails before approving. Verify that letters remain real editable vector paths, never embedded raster or font-dependent text.
 
 ## Learned operational safeguards
 - **Source of truth and freshness:** Fetch the latest `SKILL.md`, the approved SVGs and validator from GitHub **at the start of each new request**; do not rely on cached instructions, a prior conversation or a made-up installed skill version.
