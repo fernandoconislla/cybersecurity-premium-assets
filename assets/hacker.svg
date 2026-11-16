@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Hacker V4 — Familia premium</title>
+  <desc id="asset-desc">Hacker encapuchado con capucha superior suavizada y compactada visualmente, apertura facial elevada y portátil con terminal simple.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="person" aria-label="Hacker encapuchado">
+    <path id="shoulders-outer" class="primary" d="M325 428 C210 463 131 537 95 653 C64 743 51 825 51 921 C51 949 72 973 100 973 H924 C952 973 973 949 973 921 C973 825 960 743 929 653 C893 537 814 463 699 428 Z"/>
+    <path id="shoulders-white" class="contrast" d="M332 458 C234 490 164 560 132 663 C107 750 90 835 89 928 C89 932 92 935 98 935 H926 C932 935 935 932 935 928 C934 835 917 750 892 663 C860 560 790 490 692 458 Z"/>
+    <path id="shoulders-cyan" class="secondary" d="M338 487 C255 516 191 581 165 671 C140 758 126 836 126 905 H898 C898 836 884 758 859 671 C833 581 769 516 686 487 Z"/>
+
+    <path id="hood-outer" class="primary" d="M512 51 C607 51 673 107 707 184 C743 266 753 370 738 459 C730 504 716 530 692 559 C655 606 585 635 512 648 C439 635 369 606 332 559 C308 530 294 504 286 459 C271 370 281 266 317 184 C351 107 417 51 512 51 Z"/>
+    <path id="hood-white" class="contrast" d="M512 82 C591 82 643 139 674 207 C705 282 715 369 702 448 C696 485 681 511 666 529 C632 567 576 598 512 613 C448 598 392 567 358 529 C343 511 328 485 322 448 C309 369 319 282 350 207 C381 139 433 82 512 82 Z"/>
+    <path id="hood-cyan" class="secondary" d="M512 112 C579 112 620 161 646 225 C674 297 681 371 671 441 C666 466 655 487 643 505 C615 536 571 559 512 577 C453 559 409 536 381 505 C369 487 358 466 353 441 C343 371 350 297 378 225 C404 161 445 112 512 112 Z"/>
+    <path id="hood-shadow" class="primary" d="M512 213 C571 213 615 240 641 284 C660 317 664 355 655 399 C646 457 607 506 563 527 C544 537 525 544 512 547 C499 544 480 537 461 527 C417 506 378 457 369 399 C360 355 364 317 383 284 C409 240 453 213 512 213 Z"/>
+    <path id="hood-rim" class="contrast" d="M371 333 C405 260 457 232 512 232 C567 232 619 260 653 333 C599 303 560 294 512 294 C464 294 425 303 371 333 Z"/>
+  </g>
+
+  <g id="laptop" aria-label="Ordenador portátil visible a 64 píxeles">
+    <path id="screen-outer" class="primary" d="M217 567 H807 C830 567 850 587 850 610 V882 H174 V610 C174 587 194 567 217 567 Z"/>
+    <path id="screen-white-border" class="contrast" d="M223 596 H801 C812 596 820 604 820 616 V851 H204 V616 C204 604 212 596 223 596 Z"/>
+    <path id="screen-cyan-surface" class="secondary" d="M233 624 H791 V825 H233 Z"/>
+    <path id="terminal-chevron" class="primary" d="M432 678 L488 724 L432 770 L407 745 L434 724 L407 703 Z"/>
+    <path id="terminal-cursor" class="primary" d="M513 755 H612 V784 H513 Z"/>
+    <path id="laptop-base" class="primary" d="M135 856 H889 C911 856 928 870 936 893 L945 918 C951 943 933 960 908 960 H116 C91 960 73 943 79 918 L88 893 C96 870 113 856 135 856 Z"/>
+    <path id="laptop-base-trim" class="contrast" d="M123 908 H901 L909 930 H115 Z"/>
+  </g>
+</svg>
