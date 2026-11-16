@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="server-title server-desc">
+  <title id="server-title">Servidor — candidato de familia premium</title>
+  <desc id="server-desc">Servidor físico de tres módulos frontales, contorno doble y superficies divididas en cian y azul marino. Icono vectorial editable.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <defs>
+    <path id="server-silhouette" d="M234 51 H790 C842 51 873 87 873 139 V885 C873 937 842 973 790 973 H234 C182 973 151 937 151 885 V139 C151 87 182 51 234 51 Z"/>
+    <path id="server-white-inset" d="M234 78 H790 C823 78 846 102 846 139 V885 C846 922 823 946 790 946 H234 C201 946 178 922 178 885 V139 C178 102 201 78 234 78 Z"/>
+    <path id="server-face" d="M234 105 H790 C805 105 819 119 819 139 V885 C819 905 805 919 790 919 H234 C219 919 205 905 205 885 V139 C205 119 219 105 234 105 Z"/>
+    <clipPath id="server-face-clip"><use href="#server-face"/></clipPath>
+  </defs>
+
+  <g id="main-chassis" aria-label="Chasis frontal con doble contorno">
+    <use href="#server-silhouette" class="primary" id="outer-edge"/>
+    <use href="#server-white-inset" class="contrast" id="inner-white-edge"/>
+    <use href="#server-face" class="secondary" id="chassis-face"/>
+    <g clip-path="url(#server-face-clip)" id="chassis-navy-half">
+      <path d="M512 0 H1024 V1024 H512 Z" class="primary"/>
+    </g>
+  </g>
+
+  <g id="module-1" aria-label="Módulo superior">
+    <path id="module-1-outer" class="contrast" d="M247 172 H777 C797 172 807 183 807 202 V365 C807 384 797 395 777 395 H247 C227 395 217 384 217 365 V202 C217 183 227 172 247 172 Z"/>
+    <path id="module-1-left" class="secondary" d="M253 197 H512 V370 H253 C246 370 242 365 242 358 V209 C242 202 246 197 253 197 Z"/>
+    <path id="module-1-right" class="primary" d="M512 197 H771 C778 197 782 202 782 209 V358 C782 365 778 370 771 370 H512 Z"/>
+    <path id="module-1-slot" class="primary" d="M287 261 H438 C450 261 459 271 459 283 C459 295 450 305 438 305 H287 C275 305 266 295 266 283 C266 271 275 261 287 261 Z"/>
+    <circle id="module-1-led" class="contrast" cx="706" cy="283" r="29"/>
+  </g>
+  <g id="module-2" aria-label="Módulo central">
+    <path id="module-2-outer" class="contrast" d="M247 400 H777 C797 400 807 411 807 430 V593 C807 612 797 623 777 623 H247 C227 623 217 612 217 593 V430 C217 411 227 400 247 400 Z"/>
+    <path id="module-2-left" class="secondary" d="M253 425 H512 V598 H253 C246 598 242 593 242 586 V437 C242 430 246 425 253 425 Z"/>
+    <path id="module-2-right" class="primary" d="M512 425 H771 C778 425 782 430 782 437 V586 C782 593 778 598 771 598 H512 Z"/>
+    <path id="module-2-slot" class="primary" d="M287 489 H438 C450 489 459 499 459 511 C459 523 450 533 438 533 H287 C275 533 266 523 266 511 C266 499 275 489 287 489 Z"/>
+    <circle id="module-2-led" class="contrast" cx="706" cy="511" r="29"/>
+  </g>
+  <g id="module-3" aria-label="Módulo inferior">
+    <path id="module-3-outer" class="contrast" d="M247 628 H777 C797 628 807 639 807 658 V821 C807 840 797 851 777 851 H247 C227 851 217 840 217 821 V658 C217 639 227 628 247 628 Z"/>
+    <path id="module-3-left" class="secondary" d="M253 653 H512 V826 H253 C246 826 242 821 242 814 V665 C242 658 246 653 253 653 Z"/>
+    <path id="module-3-right" class="primary" d="M512 653 H771 C778 653 782 658 782 665 V814 C782 821 778 826 771 826 H512 Z"/>
+    <path id="module-3-slot" class="primary" d="M287 717 H438 C450 717 459 727 459 739 C459 751 450 761 438 761 H287 C275 761 266 751 266 739 C266 727 275 717 287 717 Z"/>
+    <circle id="module-3-led" class="contrast" cx="706" cy="739" r="29"/>
+  </g>
+</svg>
