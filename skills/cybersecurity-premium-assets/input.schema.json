@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cybersecurity Premium Asset request",
+  "type": "object",
+  "properties": {
+    "nombre": {"type": "string", "minLength": 1, "description": "Concepto principal, p. ej. Base de datos"},
+    "descripcion": {"type": "string", "description": "Composición deseada, opcional"}
+  },
+  "required": ["nombre"],
+  "additionalProperties": false
+}
