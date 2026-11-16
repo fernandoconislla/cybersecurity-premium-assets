@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Organización — iconografía premium</title>
+  <desc id="asset-desc">Edificio institucional con cuerpo central, dos alas simétricas y ventanas; geometría vectorial con azul marino, celeste y blanco parametrizables.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="organization-building" aria-label="Edificio de una organización">
+    <path class="primary" id="building-outer" d="M94 914 Q51 914 51 872 V454 Q51 419 86 419 H217 V305 Q217 275 247 275 H328 V155 Q328 110 373 110 H651 Q696 110 696 155 V275 H777 Q807 275 807 305 V419 H938 Q973 419 973 454 V872 Q973 914 930 914 Z" />
+    <path class="contrast" id="building-inner-border" d="M99 881 Q84 881 84 866 V457 Q84 452 90 452 H250 V308 H361 V157 Q361 143 376 143 H648 Q663 143 663 157 V308 H774 V452 H934 Q940 452 940 457 V866 Q940 881 925 881 Z" />
+    <path class="secondary" id="building-cyan-surface" d="M120 853 V487 H285 V343 H396 V179 H628 V343 H739 V487 H904 V853 Z" />
+  </g>
+  <g id="building-windows" aria-label="Ventanas simétricas">
+    <path class="contrast" id="center-windows" d="M418 264 H489 V337 H418 Z M535 264 H606 V337 H535 Z M418 393 H489 V466 H418 Z M535 393 H606 V466 H535 Z M418 522 H489 V595 H418 Z M535 522 H606 V595 H535 Z" />
+    <path class="contrast" id="wing-windows" d="M161 550 H239 V623 H161 Z M161 695 H239 V768 H161 Z M785 550 H863 V623 H785 Z M785 695 H863 V768 H785 Z" />
+  </g>
+  <g id="building-entrance" aria-label="Acceso principal">
+    <path class="contrast" id="entrance-white-outline" d="M419 853 V708 Q419 690 437 690 H587 Q605 690 605 708 V853 Z" />
+    <path class="primary" id="entrance-navy" d="M450 853 V726 Q450 720 456 720 H568 Q574 720 574 726 V853 Z" />
+  </g>
+</svg>
