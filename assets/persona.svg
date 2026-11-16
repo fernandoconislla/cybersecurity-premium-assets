@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-description">
+  <title id="asset-title">Persona — avatar tecnológico premium V3</title>
+  <desc id="asset-description">Representación genérica de persona con cabeza circular y torso semicircular, simétricos, celeste uniforme, doble contorno azul marino y blanco. Geometría SVG editable.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="person-head" aria-label="Cabeza circular">
+    <circle id="head-outer" class="primary" cx="512" cy="267" r="216"/>
+    <circle id="head-white-divider" class="contrast" cx="512" cy="267" r="188"/>
+    <circle id="head-cyan-field" class="secondary" cx="512" cy="267" r="162"/>
+  </g>
+  <g id="person-shoulders" aria-label="Torso semicircular y hombros simétricos">
+    <path id="torso-outer" class="primary" d="M101 930 C101 711 257 529 462 529 H562 C767 529 923 711 923 930 V940 C923 959 908 973 889 973 H135 C116 973 101 959 101 940 Z"/>
+    <path id="torso-white-divider" class="contrast" d="M130 929 C130 724 274 556 463 556 H561 C750 556 894 724 894 929 V939 C894 943 891 945 887 945 H137 C133 945 130 943 130 939 Z"/>
+    <path id="torso-cyan-field" class="secondary" d="M158 928 C158 739 290 582 464 582 H560 C734 582 866 739 866 928 V918 H158 Z"/>
+  </g>
+</svg>
