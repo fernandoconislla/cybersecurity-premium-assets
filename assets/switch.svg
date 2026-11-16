@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Switch de red — Familia premium V3</title>
+  <desc id="asset-desc">Switch lógico con forma cuadrada y cuatro flechas individuales, separadas en dos filas y dos flechas izquierdas apuntando a la izquierda y dos derechas apuntando a la derecha, en dos filas.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="switch-chassis" aria-label="Carcasa de switch con doble contorno">
+    <rect class="primary" id="outer-contour" x="51" y="51" width="922" height="922" rx="132"/>
+    <rect class="contrast" id="white-divider" x="85" y="85" width="854" height="854" rx="101"/>
+    <rect class="secondary" id="cyan-panel" x="119" y="119" width="786" height="786" rx="72"/>
+  </g>
+  <g id="four-separated-arrows" aria-label="Cuatro flechas de conmutación independientes">
+    <path class="primary" id="top-left-leftward" d="M 206 362 L 335 270 L 335 311 H 468 Q 480 311 480 323 V 401 Q 480 413 468 413 H 335 V 454 Z"/>
+    <path class="primary" id="top-right-rightward" d="M 818 362 L 689 270 L 689 311 H 556 Q 544 311 544 323 V 401 Q 544 413 556 413 H 689 V 454 Z"/>
+    <path class="primary" id="bottom-left-leftward" d="M 206 662 L 335 570 L 335 611 H 468 Q 480 611 480 623 V 701 Q 480 713 468 713 H 335 V 754 Z"/>
+    <path class="primary" id="bottom-right-rightward" d="M 818 662 L 689 570 L 689 611 H 556 Q 544 611 544 623 V 701 Q 544 713 556 713 H 689 V 754 Z"/>
+  </g>
+</svg>
