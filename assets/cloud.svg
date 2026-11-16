@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud V2 — familia premium</title>
+  <desc id="desc">Nube vectorial uniforme de color celeste, con contorno exterior azul marino y línea blanca interior. Sin división cromática artificial.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <defs>
+    <path id="cloud-outline" d="M250 824 C140 824 51 740 51 637 C51 528 134 448 239 446 C252 333 342 257 451 259 C504 198 585 183 651 221 C718 257 757 323 766 402 C883 399 973 491 973 608 C973 729 876 824 755 824 Z"/>
+  </defs>
+  <g id="cloud-silhouette" aria-label="Nube con doble contorno">
+    <use id="cloud-exterior" href="#cloud-outline" class="primary"/>
+    <use id="cloud-white-contour" href="#cloud-outline" class="contrast" transform="translate(512 512) scale(.943) translate(-512 -512)"/>
+    <use id="cloud-cyan-field" href="#cloud-outline" class="secondary" transform="translate(512 512) scale(.886) translate(-512 -512)"/>
+  </g>
+</svg>
