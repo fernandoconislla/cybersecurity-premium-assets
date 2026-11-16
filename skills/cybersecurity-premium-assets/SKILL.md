@@ -24,7 +24,21 @@ description: Use when generating, editing, validating, or saving premium cyberse
 2. Select the most recognizable visual metaphor without unnecessary decoration. Build real vector geometry with only the three token classes.
 3. Normalize the visible bounding box to 922 dominant units, center the object in both axes with proportional scaling.
 4. Run `python scripts/validate_asset.py assets/<slug>.svg`. Any failure blocks output. Inspect at native and reduced sizes; compare with the master.
-5. Display SVG on screen, link its actual SVG file, and label it **candidate** until approved. Only save approved assets to the repository if that is the agreed workflow.
+5. Perform TWO mandatory audits before delivering: technical (hard invariants) AND visual-design (criteria below). Fix defects and re-audit; passing technical validation alone never means design approval.
+6. Display SVG on screen next to the approved master, link the actual SVG file, and report both audits transparently. Label it **candidate** until explicit user approval. Only save approved assets to the repository if that is the agreed workflow.
+
+## Mandatory visual-design audit
+Evaluate each category separately with an evidence-based 0–10 score and a concrete finding:
+1. **Concept recognition:** Does the silhouette immediately communicate the named object, even at 64px? Identify confusing alternative readings.
+2. **Premium refinement:** Bézier continuity, smooth tangencies, optical alignment, accurate corners and clean silhouette.
+3. **Composition and hierarchy:** coherent focal point, intentional negative space, no competing decorations.
+4. **Geometry and volume:** physically/plausibly connected layers, correct overlaps, no floating separators or arbitrary features.
+5. **Optical balance:** perceived mass and left/right distribution, beyond mathematical centering.
+6. **Visual-family consistency:** compare side-by-side with approved shield master—outline hierarchy, white inner contour, split navy/cyan treatment where appropriate, density of detail. Never merely copy the shield silhouette.
+7. **Color-role composition:** only approved tokens, contrast on white, no excessively heavy single-color region without design rationale.
+8. **Small-size readability:** inspect at 128px and 64px, check whether detailing becomes noise.
+
+**Mandatory verdict:** APPROVE FOR USER REVIEW / REQUIRES REVISION / TECHNICALLY INVALID. A design failing recognizability, layer continuity, or family consistency is REQUIRES REVISION, even when technically valid. Scores are qualitative and must not be invented as test results. Include actionable changes prioritized by impact; never assert user approval before explicit user decision.
 
 ## Example
 `{"nombre":"Base de datos","descripcion":"Cilindro apilado de tres niveles"}` -> `assets/base-de-datos.svg`. Build layered rounded ellipses, navy main silhouette, cyan planes and restrained white interior separations. Normalize and validate.
