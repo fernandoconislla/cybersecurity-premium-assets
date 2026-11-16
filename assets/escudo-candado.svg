@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="assetTitle assetDesc">
+  <title id="assetTitle">Escudo de protección con candado</title>
+  <desc id="assetDesc">Asset premium vectorial editable en lienzo cuadrado, con tres tokens cromáticos, doble contorno y un candado central.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <defs>
+    <path id="shield-profile" d="M512 51 C625 110 749 151 887 183 C901 323 897 452 866 576 C821 753 687 881 512 973 C337 881 203 753 158 576 C127 452 123 323 137 183 C275 151 399 110 512 51 Z"/>
+    <clipPath id="inner-field-clip">
+      <use href="#shield-profile" transform="translate(512 512) scale(.886) translate(-512 -512)"/>
+    </clipPath>
+  </defs>
+  <g id="shield" aria-label="Escudo">
+    <use id="shield-outer-navy" class="primary" href="#shield-profile"/>
+    <use id="shield-white-inner-border" class="contrast" href="#shield-profile" transform="translate(512 512) scale(.943) translate(-512 -512)"/>
+    <use id="shield-cyan-field" class="secondary" href="#shield-profile" transform="translate(512 512) scale(.886) translate(-512 -512)"/>
+    <g id="shield-right-field" clip-path="url(#inner-field-clip)">
+      <path class="primary" d="M512 0 H1024 V1024 H512 Z"/>
+    </g>
+  </g>
+  <g id="lock" aria-label="Candado central">
+    <path id="lock-shackle" class="contrast" d="M407 479 V411 C407 353.01 454.01 306 512 306 C569.99 306 617 353.01 617 411 V479 H574 V411 C574 376.76 546.24 349 512 349 C477.76 349 450 376.76 450 411 V479 Z"/>
+    <path id="lock-body" class="contrast" d="M408 453 H616 C636 453 652 469 652 489 V643 C652 663 636 679 616 679 H408 C388 679 372 663 372 643 V489 C372 469 388 453 408 453 Z"/>
+    <path id="lock-keyhole" class="primary" d="M512 507 C535 507 554 526 554 549 C554 566 544 581 530 587 L535 625 C536 632 531 638 524 638 H500 C493 638 488 632 489 625 L494 587 C480 581 470 566 470 549 C470 526 489 507 512 507 Z"/>
+  </g>
+</svg>
