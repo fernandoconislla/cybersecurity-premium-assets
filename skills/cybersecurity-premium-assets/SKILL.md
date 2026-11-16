@@ -6,9 +6,9 @@ description: Use when generating, editing, validating, or saving premium cyberse
 # Cybersecurity Premium Assets
 
 ## Contract
-**Two inputs:** `nombre` (required, non-empty) and `descripcion` (optional). Without a description, infer a clear, recognizable metaphor from the name. A description may change composition, but must never override hard rules. Report any ignored conflicting instruction.
+**Two inputs:** `nombre` (required, non-empty) and `descripcion` (optional). Both values originate **only from the user**. When `nombre` is absent and the user wants to generate an asset, ask for the name; optionally offer a small input screen with required name and optional description. When the user only asks for ideas, propose concepts without treating the proposal as a submitted input. **Never invent or auto-populate `nombre` or `descripcion` and present them as user-supplied.** If `descripcion` is omitted, autonomously choose a sensible visual composition as an internal design decision; keep the input truly absent. A description may change composition, but never override hard rules. Report conflicts.
 
-**Output:** an original, genuine editable SVG `assets/<slug>.svg`, shown inline and linked. Never use a PNG as the main deliverable. Only mark as approved after explicit user approval.
+**Output:** an original, genuine editable SVG `assets/<slug>.svg`, visibly previewed and linked. PNG may be a QA preview only, never the substitute deliverable. Verify actual file existence/path before offering downloads. Only mark as approved after explicit user approval.
 
 ## Hard rules
 1. Canvas `width="1024" height="1024" viewBox="0 0 1024 1024"`. Background fully transparent.
@@ -25,7 +25,9 @@ description: Use when generating, editing, validating, or saving premium cyberse
 3. Normalize the visible bounding box to 922 dominant units, center the object in both axes with proportional scaling.
 4. Run `python scripts/validate_asset.py assets/<slug>.svg`. Any failure blocks output. Inspect at native and reduced sizes; compare in a single contact sheet with the shield **and** database masters.
 5. Perform TWO mandatory audits before delivering: technical (hard invariants) AND visual-design (criteria below). Fix defects and re-audit; passing technical validation alone never means design approval.
-6. Display the candidate SVG on screen next to **both approved assets**, link the actual SVG file, and report both audits transparently. Label it **candidate** until explicit user approval. Once approved, save it in `assets/<slug>.svg` and update the approved-family catalog in this skill without changing earlier assets. Never store rejected proposals as approved library entries.
+6. Display the candidate SVG on screen next to **both approved assets**, link the verified actual SVG file, and report both audits transparently. Label it **candidate** until explicit user approval.
+7. **Mandatory user decision gate:** after showing previews and audits, ask explicitly **«¿Apruebas este asset?»**, with two working choices: **«Aprobar e incorporar a GitHub»** or **«Solicitar una nueva optimización de diseño»**. Prefer a compact interactive radio-group + confirmation button when available; otherwise ask in natural language. The control must act only on the specific candidate shown, not on an unspecified future version. Never silently approve or automatically publish. If user approves unambiguously in text, that is sufficient—do not ask again.
+8. On **approval**, publish the **exact candidate file the user reviewed** at `assets/<slug>.svg`, update the approved-family catalog in this skill, confirm repository file URLs and preserve hashes of previously approved assets. Never redraw or subtly change geometry between approval and publishing. On **optimization**, produce a revised candidate and repeat both audits and the decision gate. Never store rejected proposals as approved entries.
 
 ## Mandatory visual-design audit
 Evaluate each category separately with an evidence-based 0–10 score and a concrete finding:
@@ -38,7 +40,7 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 7. **Color-role composition:** only approved tokens, contrast on white, no excessively heavy single-color region without design rationale.
 8. **Small-size readability:** inspect at 128px and 64px, check whether detailing becomes noise.
 
-**Mandatory verdict:** APPROVE FOR USER REVIEW / REQUIRES REVISION / TECHNICALLY INVALID. A design failing recognizability, layer continuity, or family consistency is REQUIRES REVISION, even when technically valid. Scores are qualitative and must not be invented as test results. Include actionable changes prioritized by impact; never assert user approval before explicit user decision.
+**Mandatory verdict:** READY FOR USER APPROVAL / REQUIRES REVISION / TECHNICALLY INVALID. A design failing recognizability, layer continuity, or family consistency is REQUIRES REVISION, even when technically valid. Scores are qualitative and must not be invented as test results. Document concrete deficiencies even if average score is high; failing one critical criterion cannot be masked by an average. Include actionable changes prioritized by impact; never assert user approval before explicit user decision.
 
 ## Approved-family catalog (immutable references)
 - `assets/escudo-candado.svg` — Shield and centered padlock; baseline for bold outer contour, white enclosed divider, half navy/cyan field and compact focal subject.
@@ -51,6 +53,15 @@ Both are equally authoritative examples of the same family, not interchangeable 
 - `{"nombre":"Servidor","descripcion":"Tres bandejas apiladas vistas de frente"}` → construct an original server SVG, matching both references' visual grammar without adding a shield or a cylinder.
 
 **Design lesson from database V1 → V2:** an identifiable silhouette alone does not pass review. If separators float or decoration competes with the primary concept, simplify and reconnect the geometry before presenting a candidate.
+
+## Learned operational safeguards
+- **Source of truth and freshness:** Fetch the latest `SKILL.md`, the approved SVGs and validator from GitHub **at the start of each new request**; do not rely on cached instructions, a prior conversation or a made-up installed skill version.
+- **Distinct user inputs vs design decisions:** `descripcion` absent means absent, not an assistant-composed description. A proposed concept is not a confirmed `nombre`.
+- **Approval is scoped and binding:** associate user approval with the exact candidate bytes/filename shown; only publish those bytes, not a reconstruction. On interrupted publication, check GitHub first and resume the original confirmed action without changing the design.
+- **Evidence, not decorative previews:** verify renders at 1024/128/64, against both approved originals; use actual candidate preview and never substitute a generic image-search result or an inert download control. If previews fail, disclose the failure and fix it before seeking approval.
+- **Two independent gates:** technical validation must genuinely be run, not inferred from visually plausible markup; visual design audit must be critical rather than automatically assigning 9+/10.
+- **Traceable publication:** after explicit approval, check GitHub fetch result and report the published path. Confirm master-file SHAs unchanged; update skill/catalog only after successful asset publication.
+- **Minimalism:** remove features that do not help identification (floating decorative bands, gratuitous status indicators, competing top-edge details). Avoid treating reused colors as sufficient evidence of family coherence.
 
 ## Never rationalize violations
 - More detail never permits a fourth shade or gradients.
