@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Base de datos — Familia premium</title>
+  <desc id="desc">Tres niveles cilíndricos integrados, doble contorno y división cromática, construidos con tres colores parametrizados.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <defs>
+    <path id="cylinder-outer" d="M512 51 C721 51 891 100 891 162 L891 829 C891 912 721 973 512 973 C303 973 133 912 133 829 L133 162 C133 100 303 51 512 51 Z"/>
+    <path id="cylinder-middle" d="M512 76 C706 76 863 117 863 169 L863 821 C863 884 706 942 512 942 C318 942 161 884 161 821 L161 169 C161 117 318 76 512 76 Z"/>
+    <path id="cylinder-inner" d="M512 97 C691 97 840 134 840 179 L840 817 C840 875 691 920 512 920 C333 920 184 875 184 817 L184 179 C184 134 333 97 512 97 Z"/>
+    <clipPath id="cylinder-content-clip"><use href="#cylinder-inner"/></clipPath>
+    <clipPath id="top-ellipse-clip"><path d="M512 106 C694 106 822 139 822 185 C822 231 694 264 512 264 C330 264 202 231 202 185 C202 139 330 106 512 106 Z"/></clipPath>
+  </defs>
+
+  <g id="database-silhouette" aria-label="Silueta cilíndrica y doble contorno">
+    <use class="primary" href="#cylinder-outer" id="outer-navy-outline"/>
+    <use class="contrast" href="#cylinder-middle" id="enclosed-white-contour"/>
+    <use class="secondary" href="#cylinder-inner" id="cylinder-main-surface"/>
+    <g clip-path="url(#cylinder-content-clip)" id="right-navy-half">
+      <path class="primary" d="M512 0 H1024 V1024 H512 Z"/>
+    </g>
+  </g>
+
+  <g id="tiers" clip-path="url(#cylinder-content-clip)" aria-label="Tres cilindros apilados">
+    <path id="tier-one-separation" class="contrast" d="M151 369 C297 445 727 445 873 369 L873 398 C727 477 297 477 151 398 Z"/>
+    <path id="tier-two-separation" class="contrast" d="M151 591 C297 667 727 667 873 591 L873 620 C727 699 297 699 151 620 Z"/>
+  </g>
+
+  <g id="top-surface" aria-label="Superficie superior del cilindro">
+    <path id="top-face-outline" class="contrast" d="M512 98 C707 98 847 134 847 185 C847 236 707 272 512 272 C317 272 177 236 177 185 C177 134 317 98 512 98 Z"/>
+    <path id="top-face-left" class="secondary" d="M512 121 C674 121 817 147 817 185 C817 223 674 249 512 249 C350 249 207 223 207 185 C207 147 350 121 512 121 Z"/>
+    <g clip-path="url(#top-ellipse-clip)" id="top-face-right">
+      <path class="primary" d="M512 94 H856 V277 H512 Z"/>
+    </g>
+  </g>
+</svg>
