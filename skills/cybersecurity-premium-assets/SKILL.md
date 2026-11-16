@@ -15,19 +15,20 @@ description: Use when generating, editing, validating, or saving premium cyberse
 2. Exactly three global CSS tokens in `<style>`: `--PRIMARY: #092B60;`, `--SECONDARY: #38BDF8;`, `--CONTRAST: #FFFFFF;`. All painted shapes use `.primary`, `.secondary`, or `.contrast` classes reading `var(--TOKEN)`. Values may later change for rebranding; the roles must not change.
 3. No fourth colors, gradients, shadows, filters, patterns, opacity effects, raster images, external artwork, or background rectangle. Whites must be internal and enclosed by stronger colored surfaces for visibility on white backgrounds.
 4. Main subject's dominant visible dimension ≈ 90% (922 units, tolerance ±2%). Preserve aspect ratio, center *both* axes; keep equal geometric margins on the minor dimension and avoid clipping. Optical offsets of up to 12 units require justification.
-5. Use **both approved, immutable references**: `assets/escudo-candado.svg` (shield/lock) and `assets/base-de-datos.svg` (database V2). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
-6. Geometry must consist of independently editable paths/shapes, logically grouped and identified. Never modify **either approved reference** as a side effect. Design new assets as fresh files.
-7. Verify at 1024, 128 and 64 pixels on white and visually compare side by side with **both** approved references. The icon must read as the named concept without labels.
+5. Use **all three approved, immutable references**: `assets/escudo-candado.svg` (shield/lock), `assets/base-de-datos.svg` (database V2), and `assets/servidor.svg` (server). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
+6. Geometry must consist of independently editable paths/shapes, logically grouped and identified. Never modify **any approved reference** as a side effect. Design new assets as fresh files.
+7. Verify at 1024, 128 and 64 pixels on white and visually compare side by side with **all** approved references. The icon must read as the named concept without labels.
 
 ## Workflow
-1. Read **both** approved SVG references and these rules, accept `nombre` plus optional `descripcion`.
+1. Read **all** approved SVG references and these rules, accept `nombre` plus optional `descripcion`.
 2. Select the most recognizable visual metaphor without unnecessary decoration. Build real vector geometry with only the three token classes.
 3. Normalize the visible bounding box to 922 dominant units, center the object in both axes with proportional scaling.
-4. Run `python scripts/validate_asset.py assets/<slug>.svg`. Any failure blocks output. Inspect at native and reduced sizes; compare in a single contact sheet with the shield **and** database masters.
+4. Run `python scripts/validate_asset.py assets/<slug>.svg`. Any failure blocks output. Inspect at native and reduced sizes; compare in a single contact sheet with **all** approved masters.
 5. Perform TWO mandatory audits before delivering: technical (hard invariants) AND visual-design (criteria below). Fix defects and re-audit; passing technical validation alone never means design approval.
-6. Display the candidate SVG on screen next to **both approved assets**, link the verified actual SVG file, and report both audits transparently. Label it **candidate** until explicit user approval.
+6. Display the candidate SVG on screen next to **all approved assets**, link the verified actual SVG file, and report both audits transparently. Label it **candidate** until explicit user approval.
 7. **Mandatory user decision gate:** after showing previews and audits, ask explicitly **«¿Apruebas este asset?»**, with two working choices: **«Aprobar e incorporar a GitHub»** or **«Solicitar una nueva optimización de diseño»**. Prefer a compact interactive radio-group + confirmation button when available; otherwise ask in natural language. The control must act only on the specific candidate shown, not on an unspecified future version. Never silently approve or automatically publish. If user approves unambiguously in text, that is sufficient—do not ask again.
 8. On **approval**, publish the **exact candidate file the user reviewed** at `assets/<slug>.svg`, update the approved-family catalog in this skill, confirm repository file URLs and preserve hashes of previously approved assets. Never redraw or subtly change geometry between approval and publishing. On **optimization**, produce a revised candidate and repeat both audits and the decision gate. Never store rejected proposals as approved entries.
+9. **Automatically return to the beginning after successful publication:** after confirming BOTH that the approved SVG exists on GitHub and that the skill/catalog update succeeded (while previous approved masters remain unchanged), display a compact new-asset input screen with **`nombre` required** and **`descripcion` optional**, both initially **blank**. Ask the user which asset to make next. Do not reuse the previous asset name/description and do not start new generation until the user submits the new input. If any publication step fails, do not show a misleading completed cycle—report the failure and resume verification/repair first. Do not confuse the new-asset screen with the preceding approval decision screen.
 
 ## Mandatory visual-design audit
 Evaluate each category separately with an evidence-based 0–10 score and a concrete finding:
@@ -36,7 +37,7 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 3. **Composition and hierarchy:** coherent focal point, intentional negative space, no competing decorations.
 4. **Geometry and volume:** physically/plausibly connected layers, correct overlaps, no floating separators, elliptical bands disconnected from the silhouette, or arbitrary features. For stacked forms, separations must visibly join lateral edges.
 5. **Optical balance:** perceived mass and left/right distribution, beyond mathematical centering.
-6. **Visual-family consistency:** compare side-by-side with **both** approved masters—outline hierarchy, contained white inner contour, split navy/cyan treatment where appropriate, density of detail, and similar optical scale. Match the graphic language, not either icon's silhouette.
+6. **Visual-family consistency:** compare side-by-side with **all** approved masters—outline hierarchy, contained white inner contour, split navy/cyan treatment where appropriate, density of detail, and similar optical scale. Match the graphic language, not either icon's silhouette.
 7. **Color-role composition:** only approved tokens, contrast on white, no excessively heavy single-color region without design rationale.
 8. **Small-size readability:** inspect at 128px and 64px, check whether detailing becomes noise.
 
@@ -45,12 +46,14 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 ## Approved-family catalog (immutable references)
 - `assets/escudo-candado.svg` — Shield and centered padlock; baseline for bold outer contour, white enclosed divider, half navy/cyan field and compact focal subject.
 - `assets/base-de-datos.svg` — Approved database V2; baseline for three connected cylindrical levels, restrained curved separators that reach lateral edges, simplified upper ellipse, no floating oval bands, no decorative three-dot indicator.
+- `assets/servidor.svg` — Approved server asset 03; baseline for clean rectangular geometry, three equally structured frontal modules, aligned ventilation slots and status circles, navy/white chassis contour, and consistent cyan/navy split.
 
-Both are equally authoritative examples of the same family, not interchangeable templates. The approved database geometry must not be changed by requests for unrelated concepts.
+All approved references are equally authoritative examples of the same family, not interchangeable templates. The approved database geometry must not be changed by requests for unrelated concepts.
 
 ## Usage examples
 - `{"nombre":"Base de datos"}` → use the approved `assets/base-de-datos.svg` as the existing asset; do **not** regenerate a different candidate without a requested revision.
-- `{"nombre":"Servidor","descripcion":"Tres bandejas apiladas vistas de frente"}` → construct an original server SVG, matching both references' visual grammar without adding a shield or a cylinder.
+- `{"nombre":"Servidor"}` → reuse approved `assets/servidor.svg`; do not regenerate without a requested revision.
+- `{"nombre":"Firewall","descripcion":"Equipo de red con puertos visibles"}` → generate a NEW SVG using only the user-supplied parameters and comparing against all approved assets.
 
 **Design lesson from database V1 → V2:** an identifiable silhouette alone does not pass review. If separators float or decoration competes with the primary concept, simplify and reconnect the geometry before presenting a candidate.
 
@@ -61,6 +64,7 @@ Both are equally authoritative examples of the same family, not interchangeable 
 - **Evidence, not decorative previews:** verify renders at 1024/128/64, against both approved originals; use actual candidate preview and never substitute a generic image-search result or an inert download control. If previews fail, disclose the failure and fix it before seeking approval.
 - **Two independent gates:** technical validation must genuinely be run, not inferred from visually plausible markup; visual design audit must be critical rather than automatically assigning 9+/10.
 - **Traceable publication:** after explicit approval, check GitHub fetch result and report the published path. Confirm master-file SHAs unchanged; update skill/catalog only after successful asset publication.
+- **Closed-loop UX:** after successful publication AND skill/catalog verification, show fresh empty fields for `nombre` and optional `descripcion`. Each successful publication ends at the beginning of a new cycle, awaiting the user's next submission.
 - **Minimalism:** remove features that do not help identification (floating decorative bands, gratuitous status indicators, competing top-edge details). Avoid treating reused colors as sufficient evidence of family coherence.
 
 ## Never rationalize violations
