@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+<title id="title">API KEY V3 — familia premium</title>
+<desc id="desc">Llave de acceso API diagonal, con cabeza circular y dos dientes simplificados; SVG editable con tres tokens cromáticos.</desc>
+<style>
+:root {
+ --PRIMARY: #092B60;
+ --SECONDARY: #38BDF8;
+ --CONTRAST: #FFFFFF;
+}
+.primary { fill: var(--PRIMARY); }
+.secondary { fill: var(--SECONDARY); }
+.contrast { fill: var(--CONTRAST); }
+</style>
+<defs>
+ <circle id="head-outer" cx="301" cy="512" r="250"/>
+ <circle id="head-border" cx="301" cy="512" r="224"/>
+ <circle id="head-field" cx="301" cy="512" r="199"/>
+ <clipPath id="head-clip"><use href="#head-field"/></clipPath>
+ <path id="shaft-outer" d="M470 423 H925 C950 423 973 442 973 468 V538 C973 561 954 579 931 579 H892 V662 C892 682 878 699 857 699 H813 C793 699 779 682 779 662 V579 H748 V662 C748 682 734 699 714 699 H670 C649 699 635 682 635 662 V579 H470 Z"/>
+ <path id="shaft-inset" d="M473 451 H925 C936 451 944 459 944 470 V536 C944 546 935 551 925 551 H864 V662 C864 669 861 671 854 671 H818 C811 671 808 668 808 662 V551 H720 V662 C720 669 717 671 710 671 H674 C667 671 664 668 664 662 V551 H473 Z"/>
+</defs>
+
+<g id="v3-final-normalization" transform="translate(512 512) scale(1.026726) translate(-500 -514.5)">
+<g id="normalization" transform="translate(512 512) scale(1.1002387) translate(-515.0000 -532.0000)">
+<g id="key-diagonal" transform="rotate(-38 512 512)">
+<g id="key-shaft" aria-label="Vástago y dientes">
+ <use href="#shaft-outer" class="primary" id="shaft-outline"/>
+ <use href="#shaft-inset" class="contrast" id="shaft-white-inset"/>
+ <path id="shaft-blue-field" class="secondary" d="M473 478 H915 V523 H473 Z"/>
+ <path id="shaft-right-field" class="primary" d="M512 478 H915 V523 H512 Z"/>
+</g>
+<g id="key-head" aria-label="Cabeza de llave">
+ <use href="#head-outer" class="primary" id="head-navy-outer"/>
+ <use href="#head-border" class="contrast" id="head-white-border"/>
+ <use href="#head-field" class="secondary" id="head-cyan-center"/>
+ <g clip-path="url(#head-clip)" id="head-navy-right">
+  <path class="primary" d="M301 0 H1024 V1024 H301 Z"/>
+ </g>
+</g>
+
+<g id="api-lettering" transform="rotate(38 301 512)" aria-label="Texto API trazado como vectores">
+<path id="letter-a" class="contrast" d="M1094 272H492L397 0H10L563 1493H1022L1575 0H1188ZM588 549H997L793 1143Z" transform="translate(158.50000 567) scale(0.0740644 -0.0740644)"/>
+<path id="letter-p" class="contrast" d="M188 1493H827Q1112 1493 1264.5 1366.5Q1417 1240 1417 1006Q1417 771 1264.5 644.5Q1112 518 827 518H573V0H188ZM573 1214V797H786Q898 797 959.0 851.5Q1020 906 1020 1006Q1020 1106 959.0 1160.0Q898 1214 786 1214Z" transform="translate(275.89215 567) scale(0.0740644 -0.0740644)"/>
+<path id="letter-i" class="contrast" d="M188 1493H573V0H188Z" transform="translate(387.06289 567) scale(0.0740644 -0.0740644)"/>
+</g>
+</g>
+</g>
+</g>
+</svg>
