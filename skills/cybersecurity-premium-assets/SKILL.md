@@ -15,7 +15,7 @@ description: Use when generating, editing, validating, or saving premium cyberse
 2. Exactly three global CSS tokens in `<style>`: `--PRIMARY: #092B60;`, `--SECONDARY: #38BDF8;`, `--CONTRAST: #FFFFFF;`. All painted shapes use `.primary`, `.secondary`, or `.contrast` classes reading `var(--TOKEN)`. Values may later change for rebranding; the roles must not change.
 3. No fourth colors, gradients, shadows, filters, patterns, opacity effects, raster images, external artwork, or background rectangle. Whites must be internal and enclosed by stronger colored surfaces for visibility on white backgrounds.
 4. Main subject's dominant visible dimension ≈ 90% (922 units, tolerance ±2%). Preserve aspect ratio, center *both* axes; keep equal geometric margins on the minor dimension and avoid clipping. Optical offsets of up to 12 units require justification.
-5. Use **all three approved, immutable references**: `assets/escudo-candado.svg` (shield/lock), `assets/base-de-datos.svg` (database V2), and `assets/servidor.svg` (server). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
+5. Use **all four approved, immutable references**: `assets/escudo-candado.svg` (shield/lock), `assets/base-de-datos.svg` (database V2), `assets/servidor.svg` (server), and `assets/firewall.svg` (firewall V3). They define the family together: smooth Bézier curves, deep navy outer contours, restrained enclosed white divider, cyan/navy flat field split, clear focal subject, consistent detail density. Do not attach shields/locks to unrelated concepts or clone the database silhouette.
 6. Geometry must consist of independently editable paths/shapes, logically grouped and identified. Never modify **any approved reference** as a side effect. Design new assets as fresh files.
 7. Verify at 1024, 128 and 64 pixels on white and visually compare side by side with **all** approved references. The icon must read as the named concept without labels.
 
@@ -47,15 +47,19 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 - `assets/escudo-candado.svg` — Shield and centered padlock; baseline for bold outer contour, white enclosed divider, half navy/cyan field and compact focal subject.
 - `assets/base-de-datos.svg` — Approved database V2; baseline for three connected cylindrical levels, restrained curved separators that reach lateral edges, simplified upper ellipse, no floating oval bands, no decorative three-dot indicator.
 - `assets/servidor.svg` — Approved server asset 03; baseline for clean rectangular geometry, three equally structured frontal modules, aligned ventilation slots and status circles, navy/white chassis contour, and consistent cyan/navy split.
+- `assets/firewall.svg` — Approved firewall asset 04, version V3; a wide horizontal brick wall scaled to use available height, staggered mortar joints, centered flame directly over the wall with no medallion, enclosing navy/white double contour and a split cyan/navy field. Preserve this design, not the earlier tall panel (V1) or circular-medallion concept (V2).
 
 All approved references are equally authoritative examples of the same family, not interchangeable templates. The approved database geometry must not be changed by requests for unrelated concepts.
 
 ## Usage examples
 - `{"nombre":"Base de datos"}` → use the approved `assets/base-de-datos.svg` as the existing asset; do **not** regenerate a different candidate without a requested revision.
 - `{"nombre":"Servidor"}` → reuse approved `assets/servidor.svg`; do not regenerate without a requested revision.
+- `{"nombre":"Firewall"}` → reuse approved `assets/firewall.svg`; do not regenerate or substitute a vertical panel without a requested revision.
 - `{"nombre":"Firewall","descripcion":"Equipo de red con puertos visibles"}` → generate a NEW SVG using only the user-supplied parameters and comparing against all approved assets.
 
 **Design lesson from database V1 → V2:** an identifiable silhouette alone does not pass review. If separators float or decoration competes with the primary concept, simplify and reconnect the geometry before presenting a candidate.
+
+**Design lesson from firewall V1 → V3:** correct conventional orientation is essential: a firewall is typically represented by a horizontal brick wall, not a narrow vertical panel. The wall should fill the available canvas proportionally rather than leave excessive vertical negative space, while preserving the dominant-dimension normalization rule. The flame should sit directly at the center of the wall, not inside an unrequested circular badge. Assess silhouette, negative space, placement and concept-specific composition before approving.
 
 ## Learned operational safeguards
 - **Source of truth and freshness:** Fetch the latest `SKILL.md`, the approved SVGs and validator from GitHub **at the start of each new request**; do not rely on cached instructions, a prior conversation or a made-up installed skill version.
