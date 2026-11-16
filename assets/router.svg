@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Router — Familia premium V3</title>
+  <desc id="asset-desc">Router lógico con cuatro flechas curvas vectoriales, transiciones fluidas alrededor de un núcleo circular y doble contorno premium.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="router-body" aria-label="Cuerpo circular y doble contorno">
+    <circle id="outer-ring" class="primary" cx="512" cy="512" r="461"/>
+    <circle id="inner-white-ring" class="contrast" cx="512" cy="512" r="429"/>
+    <circle id="cyan-disc" class="secondary" cx="512" cy="512" r="396"/>
+  </g>
+  <g id="routing-arms" aria-label="Cuatro flechas curvas originales de encaminamiento">
+    <path id="arrow-up" class="primary" d="M 429 524 C 420 467 428 430 469 384 C 518 329 541 305 531 271 L 418 300 L 512 173 L 606 300 L 556 286 C 571 352 552 390 506 434 C 483 456 480 479 484 520 Z"/>
+    <path id="arrow-right" class="primary" transform="rotate(90 512 512)" d="M 429 524 C 420 467 428 430 469 384 C 518 329 541 305 531 271 L 418 300 L 512 173 L 606 300 L 556 286 C 571 352 552 390 506 434 C 483 456 480 479 484 520 Z"/>
+    <path id="arrow-down" class="primary" transform="rotate(180 512 512)" d="M 429 524 C 420 467 428 430 469 384 C 518 329 541 305 531 271 L 418 300 L 512 173 L 606 300 L 556 286 C 571 352 552 390 506 434 C 483 456 480 479 484 520 Z"/>
+    <path id="arrow-left" class="primary" transform="rotate(270 512 512)" d="M 429 524 C 420 467 428 430 469 384 C 518 329 541 305 531 271 L 418 300 L 512 173 L 606 300 L 556 286 C 571 352 552 390 506 434 C 483 456 480 479 484 520 Z"/>
+  </g>
+  <g id="routing-hub" aria-label="Separación anular y nodo central">
+    <circle id="hub-divider" class="contrast" cx="512" cy="512" r="109"/>
+    <circle id="hub-core" class="primary" cx="512" cy="512" r="78"/>
+    <circle id="hub-center" class="secondary" cx="512" cy="512" r="46"/>
+  </g>
+</svg>
