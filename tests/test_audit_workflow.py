@@ -23,7 +23,7 @@ class WorkflowAuditTests(unittest.TestCase):
         (self.root / 'scripts').mkdir()
         (self.root / 'assets').mkdir()
         (self.root / 'work').mkdir()
-        for filename in ('audit_workflow.py', 'validate_asset.py', 'approved_masters.json'):
+        for filename in ('audit_workflow.py', 'approval_gate.py', 'validate_asset.py', 'approved_masters.json'):
             shutil.copyfile(SOURCE_ROOT / 'scripts' / filename, self.root / 'scripts' / filename)
         index = json.loads((self.root / 'scripts/approved_masters.json').read_text())
         for name in index:
@@ -90,6 +90,73 @@ class WorkflowAuditTests(unittest.TestCase):
         self.assertNotEqual(run.returncode, 0)
         self.assertIn('Candidate SHA-256', '\n'.join(report['failures']))
 
+
+    def gate(self):
+        manifest_path = self.root / 'work/manifest.json'
+        report_path = self.root / 'work/audit/audit-report.json'
+        return subprocess.run([sys.executable, str(self.root / 'scripts/approval_gate.py'),
+                               '--repo-root', str(self.root), '--manifest', str(manifest_path),
+                               '--report', str(report_path)], capture_output=True, text=True)
+
+    def add_manual_evidence(self):
+        self.manifest['manual_evidence'] = {
+            name: {'reviewed': True, 'finding': 'Reviewed original evidence and found no blocking issue.'}
+            for name in ('references_verified', 'previews_inspected',
+                         'family_compared', 'critical_defects_checked')
+        }
+
+    def test_06_gate_blocks_missing_manual_evidence(self):
+        self.execute()
+        result = self.gate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Manual review missing', result.stdout)
+
+    def test_07_gate_accepts_complete_evidence(self):
+        self.add_manual_evidence()
+        self.execute()
+        result = self.gate()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        receipt = json.loads((self.root / 'work/audit/approval-authorization.json').read_text())
+        self.assertEqual(receipt['status'], 'READY_FOR_USER_REVIEW')
+        self.assertFalse(receipt['publication_authorized'])
+
+    def test_08_gate_blocks_changed_candidate(self):
+        self.add_manual_evidence()
+        self.execute()
+        with (self.root / 'work/candidate.svg').open('ab') as file:
+            file.write(b'<!-- changed -->')
+        result = self.gate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Candidate hash mismatch', result.stdout)
+
+    def test_09_gate_blocks_altered_preview_and_removes_receipt(self):
+        self.add_manual_evidence()
+        self.execute()
+        self.assertEqual(self.gate().returncode, 0)
+        (self.root / 'work/audit/candidate-64.png').write_bytes(b'broken')
+        result = self.gate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Render missing, altered', result.stdout)
+        self.assertFalse((self.root / 'work/audit/approval-authorization.json').exists())
+
+    def test_10_gate_blocks_changed_manifest(self):
+        self.add_manual_evidence()
+        self.execute()
+        manifest_path = self.root / 'work/manifest.json'
+        content = json.loads(manifest_path.read_text())
+        content['version'] = 'V2'
+        manifest_path.write_text(json.dumps(content))
+        result = self.gate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('manifest changed', result.stdout)
+
+    def test_11_gate_blocks_visual_revision_verdict(self):
+        self.add_manual_evidence()
+        self.manifest['visual_audit']['verdict'] = 'REQUIRES REVISION'
+        self.execute()
+        result = self.gate()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Visual audit verdict not ready', result.stdout)
 
 if __name__ == '__main__':
     unittest.main()
