@@ -5,6 +5,24 @@ description: Use when generating, editing, validating, or saving premium cyberse
 
 # Cybersecurity Premium Assets
 
+## Fail-closed presentation gate (mandatory; supersedes any earlier approval-ready wording)
+**No asset may be presented as ready for approval unless `scripts/approval_gate.py` returns exit code 0 and creates `approval-authorization.json` for the exact candidate SHA-256.** The existing `AUTOMATED PREFLIGHT PASS` from `audit_workflow.py` is necessary but **not sufficient**. If a step is skipped, unavailable, inconclusive, or fails, report `BLOCKED / AUDIT INCOMPLETE`, repair, and rerun; never offer a functional approval decision for an unqualified candidate.
+
+Mandatory execution from a complete, hash-verified repository snapshot:
+
+```bash
+python scripts/validate_asset.py path/to/candidate.svg
+python scripts/audit_workflow.py --repo-root . --manifest work/manifest.json
+python scripts/approval_gate.py --repo-root . --manifest work/manifest.json --report work/audit/audit-report.json
+```
+
+The manifest MUST contain `manual_evidence` with exactly documented attestations for `references_verified`, `previews_inspected`, `family_compared`, and `critical_defects_checked`. Each requires `reviewed: true` plus a specific `finding` of 20+ characters **based on work actually performed**, never filler or invented results. Auditors must genuinely inspect original official reference pages, the 1024/128/64 renders, all pinned masters, and design flaws. Mechanical validation cannot substantiate subjective truth. For revisions also inspect prior/current comparison.
+
+Before presenting approval, read the receipt and independently verify it describes the current SVG bytes and hash; its `publication_authorized: false` never authorizes publishing. A stale receipt becomes invalid if source or renders change. Keep approval user-scoped and publish only after explicit user approval and integrity checks. A failed gate deliberately deletes an old receipt.
+
+**Non-negotiable regression tests**: missing manual review, tampered SVG, modified 64px preview, changed manifest, and visual verdict requiring revision MUST block. Run `python -m unittest discover -s tests -v` with success evidence after changes to scripts or the skill. CI run status is evidence only when actually fetched; a GitHub commit is not proof of passed tests.
+
+
 ## Contract
 **Two inputs:** `nombre` (required, non-empty) and `descripcion` (optional). Both values originate **only from the user**. When `nombre` is absent and the user wants to generate an asset, ask for the name; optionally offer a small input screen with required name and optional description. When the user only asks for ideas, propose concepts without treating the proposal as a submitted input. **Never invent or auto-populate `nombre` or `descripcion` and present them as user-supplied.** If `descripcion` is omitted, autonomously choose a sensible visual composition as an internal design decision; keep the input truly absent. A description may change composition, but never override hard rules. Report conflicts.
 
