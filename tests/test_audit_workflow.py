@@ -23,7 +23,7 @@ class WorkflowAuditTests(unittest.TestCase):
         (self.root / 'scripts').mkdir()
         (self.root / 'assets').mkdir()
         (self.root / 'work').mkdir()
-        for filename in ('audit_workflow.py', 'approval_gate.py', 'validate_asset.py', 'approved_masters.json'):
+        for filename in ('audit_workflow.py', 'approval_gate.py', 'validate_asset.py', 'master_cache.py', 'approved_masters.json', 'approved_masters_pack.json'):
             shutil.copyfile(SOURCE_ROOT / 'scripts' / filename, self.root / 'scripts' / filename)
         index = json.loads((self.root / 'scripts/approved_masters.json').read_text())
         for name in index:
@@ -71,6 +71,24 @@ class WorkflowAuditTests(unittest.TestCase):
         run, report = self.execute()
         self.assertNotEqual(run.returncode, 0)
         self.assertIn('Approved master: cloud', '\n'.join(report['failures']))
+
+    def test_02b_offline_exact_master_pack_passes_without_local_originals(self):
+        for name in json.loads((self.root / 'scripts/approved_masters.json').read_text()):
+            (self.root / 'assets' / (name + '.svg')).unlink()
+        run, report = self.execute()
+        self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+        self.assertEqual(report['automated_preflight'], 'PASS')
+        self.assertTrue((self.root / 'work/audit/verified_masters/cloud.svg').is_file())
+        self.assertTrue(Path(report['renders']['family']).is_file())
+
+    def test_02c_tampered_pack_blocks_even_if_originals_exist(self):
+        path = self.root / 'scripts/approved_masters_pack.json'
+        content = json.loads(path.read_text())
+        content['assets']['cloud'] += '\\n<!-- modified cache -->\\n'
+        path.write_text(json.dumps(content))
+        run, report = self.execute()
+        self.assertNotEqual(run.returncode, 0)
+        self.assertIn('Verified master source', '\\n'.join(report['failures']))
 
     def test_03_missing_reference_fails(self):
         self.manifest['references'] = self.manifest['references'][:2]
