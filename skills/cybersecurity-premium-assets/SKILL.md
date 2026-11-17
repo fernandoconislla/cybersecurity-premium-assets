@@ -18,18 +18,23 @@ description: Use when generating, editing, validating, or saving premium cyberse
 
 **Root cause addressed:** the GitHub app/connector and the Python filesystem may be isolated. Seeing official files through the GitHub connector does **not** mean they are automatically mounted in the runtime, and Python may not resolve `raw.githubusercontent.com`. Never assume transferred files exist. Do not retry the same inaccessible URL in a loop, substitute unofficial scripts, forge evidence, or skip a gate.
 
-**New official entry point:** `scripts/bootstrap_audit.py` together with a **single** versioned `scripts/audit_runtime_bundle.json`. The bundle contains exact pinned UTF-8 bytes of all six official runtime files: validator, auditor, approval gate, master-cache resolver, pinned index and 17-master verified pack. `bootstrap_audit.py` checks bundle Git blobs, pack/index parity, official validator provenance, local file consistency, installed Python dependencies, candidate + previous-version SHA, and the real audit manifest. It stages missing files before attempting any official scripts. With `--execute`, it runs all three official scripts in sequence and verifies the resulting approval receipt. It **never publishes an asset**.
+**New official entry point:** `scripts/bootstrap_audit.py` together with a **single** versioned `scripts/audit_runtime_bundle.json`. The bundle contains exact pinned UTF-8 bytes of all six official runtime files: validator, auditor, approval gate, master-cache resolver, pinned index and 17-master verified pack. `bootstrap_audit.py` checks bundle Git blobs, pack/index parity, official validator provenance, local file consistency, installed Python dependencies, candidate + previous-version SHA, and the real audit manifest. It stages missing files before attempting any official scripts. **Use `--audit-only` first; inspect the genuine outputs and complete manual evidence; re-run `--audit-only` when the manifest changes; only then run `--gate-only`.** `--execute` is reserved for cases with independently completed and recorded visual evidence. It **never publishes an asset**.
 
 ### Preferred command
 
 ```bash
-python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --execute
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --audit-only
+# Inspeccionar 1024/128/64 y hoja familiar; registrar manual_evidence real.
+# Si se modifica el manifiesto, volver a ejecutar --audit-only.
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --gate-only
 ```
 
 **In a restricted Python environment (no outbound GitHub HTTPS):** use the connected GitHub app to fetch **exactly** `scripts/bootstrap_audit.py` and `scripts/audit_runtime_bundle.json` from the repository, then transfer/write these files into the runtime via a supported file-materialization/attachment path. Explicitly verify that both files **exist on disk**. The connector cannot transfer bytes into Python merely because they were returned in chat. Then execute:
 
 ```bash
-python scripts/bootstrap_audit.py --repo-root . --bundle /actual/local/path/audit_runtime_bundle.json --offline --manifest work/manifest.json --execute
+python scripts/bootstrap_audit.py --repo-root . --bundle /actual/local/path/audit_runtime_bundle.json --offline --manifest work/manifest.json --audit-only
+# Inspección visual y evidencia, y nueva auditoría si cambia el manifiesto.
+python scripts/bootstrap_audit.py --repo-root . --bundle /actual/local/path/audit_runtime_bundle.json --offline --manifest work/manifest.json --gate-only
 ```
 
 **No working file bridge?** Return `BLOCKED / AUDIT INCOMPLETE` with diagnostic `NETWORK_AND_BUNDLE_UNAVAILABLE` or `BUNDLE_NOT_AVAILABLE`. Do not claim there is a completed audit or show approval controls. The bootstrap supports bounded HTTPS retrieval only when network access works; an offline execution must use a **real local bundle file**. The previous SVG and the manifest are not contained in the bundle and must remain real, separately hashed source inputs. Manual evidence must reflect inspections actually performed.
@@ -52,10 +57,13 @@ python scripts/bootstrap_audit.py --repo-root . --bundle /actual/local/path/audi
 ## Fail-closed presentation gate (mandatory; supersedes any earlier approval-ready wording)
 **No asset may be presented as ready for approval unless `scripts/approval_gate.py` returns exit code 0 and creates `approval-authorization.json` for the exact candidate SHA-256.** The existing `AUTOMATED PREFLIGHT PASS` from `audit_workflow.py` is necessary but **not sufficient**. If a step is skipped, unavailable, inconclusive, or fails, report `BLOCKED / AUDIT INCOMPLETE`, repair, and rerun; never offer a functional approval decision for an unqualified candidate.
 
-Mandatory execution (bootstrap initializes exact runtime, then invokes all three official scripts):
+Mandatory execution in **two phases** (bootstrap initializes exact runtime; gate only after real visual inspection):
 
 ```bash
-python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --execute
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --audit-only
+# Inspeccionar 1024/128/64 y hoja familiar; registrar manual_evidence real.
+# Si se modifica el manifiesto, volver a ejecutar --audit-only.
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --gate-only
 ```
 
 With GitHub connectivity blocked, first transfer the exact `bootstrap_audit.py` and `audit_runtime_bundle.json` into the Python filesystem, then supply `--bundle /actual/path/audit_runtime_bundle.json --offline`. Without an actual bridge, fail closed; do not treat a GitHub API response as a local file.
@@ -107,7 +115,7 @@ The executable auditor is the required **preflight authority for reproducible ev
 1. Read **VISUAL_STYLE.md** and these rules (not every approved SVG for visual reference), accept `nombre` plus optional `descripcion`, and complete the **mandatory external reference research and comparison** above before selecting a geometry.
 2. Select the most recognizable visual metaphor without unnecessary decoration. Build real vector geometry with only the three token classes.
 3. Normalize the visible bounding box to 922 dominant units, center in both axes without distortion; audit optical balance separately. If symmetry is required, construct mirrored pairs and verify exact limb/arrow counts, placement, spacing and orientation.
-4. Run **`bootstrap_audit.py --execute`** (not independent ad-hoc validators). It provisions the official validator, auditor, exact master pack and approval gate and runs all three scripts. Any nonzero exit blocks delivery. Inspect its real SVG-derived 1024/128/64 renders, all-master contact sheet, and previous/current comparison for revisions; use only its verified candidate SHA and paths.
+4. Run **`bootstrap_audit.py --audit-only`** to initialize and execute the official validator and auditor. Inspect their genuine 1024/128/64 and family renders and record actual evidence, then re-audit if the manifest changes; finally run **`bootstrap_audit.py --gate-only`**. A nonzero exit at any phase blocks delivery. Inspect its real SVG-derived 1024/128/64 renders, all-master contact sheet, and previous/current comparison for revisions; use only its verified candidate SHA and paths.
 5. Perform TWO mandatory independent audits: technical (hard invariants) AND visual-design (criteria below), with separately reported visual **reference fidelity** and **relative family color distribution** where relevant. Fix critical defects and re-audit; technical success cannot override visual failure, and a high average cannot conceal a critical failure.
 6. **Mandatory visible media gate:** render the **actual candidate image visibly inline** in the user-facing response, ideally at 1024px on white, using a verified path. Internal QA must inspect 128px and 64px renders and the auditor-generated all-master sheet; do not show auxiliary evidence files by default unless requested. Link the exact validated editable SVG. Never substitute text paths, image lookups or non-SVG illustrations for the SVG preview. Confirm the exact preview and SVG files exist in the active container/session before linking. If a preview does not render, **repair display and re-render before continuing**; never describe an invisible preview as shown. Report both audits transparently and label **candidate** until explicit approval.
 7. **Mandatory interactive approval gate (imperative, no plain-text substitution when functional controls are available):** Immediately after the candidate's **visible inline image**, working SVG download, comparisons and audit, ask **«¿Apruebas este asset?»** and render an actual **interactive form** with precisely two selectable decisions: **«Aprobar e incorporar a GitHub»** and **«Solicitar una nueva optimización de diseño»**. Use state-bound radio-group (or equivalent), initialized safely to `optimizar`, and a real confirm/submit button. **Only when `optimizar` is selected**, dynamically reveal a blank multiline optional `textarea` labelled **«Indicaciones adicionales (opcional)»**. When selected decision is `aprobar`, hide the textarea; clicking confirm must submit approval of the exact file/version/hash reviewed, not guessed paths. When `optimizar` is selected, the same real submit button sends the version, the user's additional text (or no text if blank), preserved/rejected constraints, identified audit issues and explicit **no-publication** instruction. In ChatGPT's available interactive UI, use controlled `radio-group`, conditional `textarea`, and `button` wired synchronously to `GenUI.issueNewTurn(...)`, or the actual equivalent host action. **Do not use static Markdown checklists, printed choices, text-field placeholders, a copy-only button, inert controls or ask the user to type a stock phrase in place of the working form.** No invented third option; new concept/regeneration belongs under optimization with optional user guidance. Fall back to conversational choice **only if the environment genuinely cannot render functional interactive controls**, and explicitly disclose that technical limitation. The approval control applies strictly to the currently visible candidate. Explicit plain-text user approval also remains valid without reconfirming.
@@ -122,7 +130,9 @@ The executable auditor is the required **preflight authority for reproducible ev
 2. **Prepare evidence manifest:** copy `scripts/audit_manifest.example.json` and fill `mode` (`new` or `revision`), `asset`, `version`, actual `candidate` path, **computed** `candidate_sha256`, output directory, at least **three independently researched official-source URLs** with specific traits and design decisions, `chromatic_decision` with rationale, and all ten `visual_audit` findings and honest scores. For revisions, include actual `previous_candidate` and `previous_sha256`. The script checks documented domains but **does not itself browse or prove the URLs' claims**; the assistant must verify those separately.
 3. **Execute** from the staged repository root:
    ```bash
-   python scripts/bootstrap_audit.py --repo-root . --manifest path/to/audit-manifest.json --execute
+   python scripts/bootstrap_audit.py --repo-root . --manifest path/to/audit-manifest.json --audit-only
+   # Inspeccionar, completar evidencia humana real y reauditar si se editó el manifiesto
+   python scripts/bootstrap_audit.py --repo-root . --manifest path/to/audit-manifest.json --gate-only
    ```
    Require exit code **0** and `AUTOMATED PREFLIGHT PASS`. The workflow auditor checks the trusted validator's hash, candidate SHA-256, all pinned masters, source declarations, color rationale, the documented visual findings and version continuity; it renders the exact SVG at 1024/128/64 px and produces a full-family contact sheet and, in revisions, a previous/current comparison.
 4. **Show the hard-rule audit table independently:** report the **eight numbered hard rules 1–8** using `hard-rules.md` and `audit-report.json`, with explicit PASS/FAIL and underlying evidence; never merge these into subjective 0–10 visual grades or claim that human judgments are machine-verifiable. **Any FAIL blocks READY FOR USER APPROVAL**, even if the visual scores are high.
