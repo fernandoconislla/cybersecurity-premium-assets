@@ -26,9 +26,31 @@ Ejemplos:
 {"nombre":"Servidor","descripcion":"Tres bandejas apiladas con indicadores frontales"}
 ```
 
+## Auditoría reproducible sin descargar 17 SVG uno por uno
+
+Para diseñar, consultar **solo** [VISUAL_STYLE.md](skills/cybersecurity-premium-assets/VISUAL_STYLE.md), no los SVG maestros.
+
+Para la **auditoría técnica oficial** se requieren los hashes de todos los maestros, pero ahora basta con llevar un único archivo [approved_masters_pack.json](scripts/approved_masters_pack.json) junto al [índice](scripts/approved_masters.json), el auditor oficial y [master_cache.py](scripts/master_cache.py). `audit_workflow.py` recupera bajo el directorio de salida los SVG faltantes, verifica **cada Git blob** contra el índice y genera la hoja comparativa real. Si el paquete está corrupto o desactualizado, el flujo falla; no se omite ningún control.
+
+```bash
+python scripts/validate_asset.py work/candidate.svg
+python scripts/audit_workflow.py --repo-root . --manifest work/manifest.json
+python scripts/approval_gate.py --repo-root . --manifest work/manifest.json --report work/audit/audit-report.json
+```
+
+Cuando se publique un asset aprobado, actualizar **ambos** `scripts/approved_masters.json` y `scripts/approved_masters_pack.json` con los bytes exactos del SVG. En un checkout completo, generar y verificar el paquete mediante:
+
+```bash
+python scripts/build_master_pack.py --write
+python scripts/build_master_pack.py --check
+python -m unittest discover -s tests -v
+```
+
+**Nota:** el paquete es un medio de transporte para QA, no una plantilla gráfica ni una autorización para publicar.
+
 ## Puerta de aprobación obligatoria
 
-Una auditoría técnica correcta **no** habilita por sí sola la solicitud de aprobación. Antes de presentar cualquier nuevo candidato se exige evidencia explícita de investigación e inspección humana, ejecución de los dos scripts oficiales, hashes válidos de 16 maestros, el SVG y sus previsualizaciones, y el recibo `APPROVAL GATE PASS`.
+Una auditoría técnica correcta **no** habilita por sí sola la solicitud de aprobación. Antes de presentar cualquier nuevo candidato se exige evidencia explícita de investigación e inspección humana, ejecución de los dos scripts oficiales, hashes válidos de todos los maestros del índice, el SVG y sus previsualizaciones, y el recibo `APPROVAL GATE PASS`.
 
 ```bash
 python scripts/validate_asset.py work/candidate.svg
