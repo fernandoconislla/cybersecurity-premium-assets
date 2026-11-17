@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Smartphone V2 — Familia premium</title>
+  <desc id="desc">Teléfono inteligente frontal con pantalla celeste, contorno marino, bisel blanco y detalle mínimo de cámara y altavoz.</desc>
+  <style>
+    :root { --PRIMARY: #092B60; --SECONDARY: #38BDF8; --CONTRAST: #FFFFFF; }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="smartphone-chassis">
+    <rect id="outer-body" class="primary" x="238" y="51" width="548" height="922" rx="87"/>
+    <rect id="white-recessed-rim" class="contrast" x="270" y="82" width="484" height="860" rx="63"/>
+    <rect id="display" class="secondary" x="301" y="138" width="422" height="731" rx="37"/>
+  </g>
+  <g id="camera-and-speaker">
+    <rect id="speaker" class="primary" x="458" y="105" width="108" height="15" rx="7.5"/>
+    <circle id="front-camera" class="primary" cx="593" cy="112.5" r="8"/>
+  </g>
+  <g id="bottom-control">
+    <rect id="gesture-indicator" class="primary" x="458" y="900" width="108" height="12" rx="6"/>
+  </g>
+</svg>
