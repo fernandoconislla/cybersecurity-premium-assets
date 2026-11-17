@@ -28,6 +28,10 @@ jobs:
       - name: Install audit dependencies
         run: python -m pip install --upgrade pip cairosvg Pillow
       - name: Compile Python sources
-        run: python -m py_compile scripts/validate_asset.py scripts/audit_workflow.py tests/test_audit_workflow.py
+        run: python -m py_compile scripts/validate_asset.py scripts/audit_workflow.py scripts/approval_gate.py scripts/master_cache.py scripts/bootstrap_audit.py scripts/build_master_pack.py scripts/build_audit_runtime_bundle.py tests/test_audit_workflow.py tests/test_bootstrap_audit.py tests/test_master_cache.py
+      - name: Verify approved master pack (17 exact Git blobs)
+        run: python scripts/build_master_pack.py --check
+      - name: Verify full offline audit runtime bundle
+        run: python scripts/build_audit_runtime_bundle.py --check
       - name: Run regression tests
         run: python -m unittest discover -s tests -v
