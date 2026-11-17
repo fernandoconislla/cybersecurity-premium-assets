@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Laptop — Familia premium V1</title>
+  <desc id="asset-desc">Ordenador portátil frontal abierto con pantalla celeste, bisel azul marino y blanco y base con teclado minimalista; SVG vectorial editable.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="screen-frame" aria-label="Pantalla y biseles de ordenador portátil">
+    <path id="bezel-navy" class="primary" d="M191 129 H833 C861 129 883 151 883 179 V742 H141 V179 C141 151 163 129 191 129 Z"/>
+    <path id="bezel-white" class="contrast" d="M194 163 H830 C841 163 849 171 849 182 V703 H175 V182 C175 171 183 163 194 163 Z"/>
+    <path id="display-cyan" class="secondary" d="M206 192 H818 V671 H206 Z"/>
+    <path id="inner-bottom-lip" class="primary" d="M458 693 H566 Q574 693 574 702 V717 H450 V702 Q450 693 458 693 Z"/>
+  </g>
+  <g id="keyboard-deck" aria-label="Base del portátil con perspectiva y superficie de teclado">
+    <path id="deck-navy-outer" class="primary" d="M141 693 H883 L973 828 V856 C973 878 954 895 932 895 H92 C70 895 51 878 51 856 V828 Z"/>
+    <path id="deck-white-divider" class="contrast" d="M164 723 H860 L932 829 H92 Z"/>
+    <path id="deck-cyan-surface" class="secondary" d="M186 744 H838 L891 818 H133 Z"/>
+    <path id="keyboard-row-one" class="primary" d="M273 767 H751 Q762 767 767 776 Q773 787 757 787 H267 Q251 787 257 776 Q262 767 273 767 Z"/>
+    <path id="keyboard-row-two" class="primary" d="M299 799 H725 Q741 799 748 811 H276 Q283 799 299 799 Z"/>
+    <path id="bottom-navy-edge" class="primary" d="M51 828 H973 V856 C973 878 954 895 932 895 H92 C70 895 51 878 51 856 Z"/>
+    <path id="front-white-line" class="contrast" d="M102 845 H922 V856 H102 Z"/>
+    <path id="front-cyan-notch" class="secondary" d="M433 845 H591 Q587 863 565 863 H459 Q437 863 433 845 Z"/>
+  </g>
+</svg>
