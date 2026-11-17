@@ -38,7 +38,7 @@ class BootstrapAuditTests(unittest.TestCase):
         payload = json.loads(BUNDLE.read_text(encoding='utf-8'))
         files, count = bootstrap.verify_bundle(payload)
         self.assertEqual(set(files), set(bootstrap.REQUIRED))
-        self.assertEqual(count, 17)
+        self.assertEqual(count, len(json.loads((ROOT / 'scripts/approved_masters.json').read_text(encoding='utf-8'))))
         self.assertIn(b'VALIDATOR_BLOB_SHA', files['scripts/audit_workflow.py'])
 
     def test_02_offline_setup_no_local_assets_passes(self):

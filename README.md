@@ -30,7 +30,7 @@ Ejemplos:
 
 La skill utiliza [VISUAL_STYLE.md](skills/cybersecurity-premium-assets/VISUAL_STYLE.md) para la identidad gráfica. Los originales aprobados sirven para la auditoría técnica, no para copiar la geometría de otros iconos.
 
-**Nuevo punto de entrada:** [bootstrap_audit.py](scripts/bootstrap_audit.py). Obtiene y verifica un único [audit_runtime_bundle.json](scripts/audit_runtime_bundle.json) que incluye los scripts oficiales, el índice de los maestros y los 17 SVG exactos empaquetados. No requiere descargar cada maestro por separado.
+**Nuevo punto de entrada:** [bootstrap_audit.py](scripts/bootstrap_audit.py). Obtiene y verifica un único [audit_runtime_bundle.json](scripts/audit_runtime_bundle.json) que incluye los scripts oficiales, el índice de los maestros y los SVG maestros exactos empaquetados. No requiere descargar cada maestro por separado.
 
 ```bash
 python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --audit-only
@@ -58,7 +58,7 @@ python scripts/build_audit_runtime_bundle.py --check
 python -m unittest discover -s tests -v
 ```
 
-Con una validación de contenidos satisfactoria, los 17 maestros permanecen inalterados. Un paquete desactualizado se rechaza y no habilita el formulario de aprobación.
+Con una validación de contenidos satisfactoria, los maestros anteriores permanecen inalterados. Un paquete desactualizado se rechaza y no habilita el formulario de aprobación.
 
 ## Puerta de aprobación obligatoria
 
@@ -80,6 +80,12 @@ python scripts/validate_asset.py assets/*.svg
 ```
 
 SVG con variables CSS: el validador resuelve las variables solamente en una copia temporal para comprobar la geometría renderizada. El archivo fuente sigue editable.
+
+## Asset maestro 18 — Caja tecnología proveedor (V8)
+
+- [SVG editable aprobado](assets/caja-tecnologia-proveedor.svg) — SHA-256: `adc1f0c6925dcf64551eaa10cdf3cb3b035ca09131f028382231f60cd14ac422`.
+- Caja isométrica de tres caras, contorno hexagonal redondeado y **un microchip en perspectiva en la cara derecha**; conservar exactamente el SVG auditado.
+- Los 17 assets anteriores mantienen sus hashes originales; los 18 maestros quedan indexados y empaquetados.
 
 ## Estructura
 `assets/` → originales SVG; `skills/` → procedimiento reutilizable; `scripts/` → validación; `tests/` → pruebas; `.github/workflows/` → CI.
