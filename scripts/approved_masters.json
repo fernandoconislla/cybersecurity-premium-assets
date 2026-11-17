@@ -1,0 +1,18 @@
+{
+  "escudo-candado": "e1f6e7174e376e0e1aaeca1639110a189f7d6ce5",
+  "base-de-datos": "e5dd898f385ed7bd49bed744aa799e6c8af9ec1e",
+  "servidor": "09ac9eabaf8e508c123bf74f5c12dffbe3498584",
+  "firewall": "b0051a609ed51921d993a0622c61b45ec18fe750",
+  "api-key": "57e71f8b146f336809135abcfb5688c46591c416",
+  "cloud": "ed624903742311f2a1e48beb8a11dfaa08488ed2",
+  "persona-simple": "62df8f251f6900f0cd936790e1095341a4e88f06",
+  "hacker": "505dea482e3c987e0c55caa603dc5aa7e07a5736",
+  "organizacion": "d81b81bd3f220783d03bc26aaf66121fb92bfa15",
+  "router": "f15d3f5ce642c794ff2743b57c4fb4d4060521ce",
+  "switch": "f6ae8c9c2f5fda52940be6d50ecd7ab176ef33b6",
+  "malware": "80d1599e603375b5985de0e63b955e41802bd657",
+  "antivirus": "1ad30b5037d0ece8048bdff2e24eebc82c057333",
+  "laptop": "af2bf20ece7ad6540a6fb0227b711fb005f683ba",
+  "smartphone": "18c784b51ffaee3772c737f2dd26ef023cbfd059",
+  "virus": "6778803bb670b0da13f6bd37ee3dd07af24dbc69"
+}
