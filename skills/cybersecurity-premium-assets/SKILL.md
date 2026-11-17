@@ -5,6 +5,15 @@ description: Use when generating, editing, validating, or saving premium cyberse
 
 # Cybersecurity Premium Assets
 
+## Mandatory first-generation completion rule
+
+**Every initial generation must execute the COMPLETE audit in the SAME request, before presenting any candidate as finished.** This obligation is identical for V1 and for revisions; a first draft, preliminary validator PASS, three-size previews, or a visually plausible icon are NOT a deliverable completion point.
+
+**Non-skippable sequence:** verify current source and all approved masters -> verify 3 actual official references -> create genuine editable SVG -> run `validate_asset.py` -> run `audit_workflow.py` with a fully documented manifest -> visually inspect the exact 1024/128/64 renders and entire family comparison -> complete all 8 hard-rule findings and all 10 independently reasoned visual criteria -> fix defects and rerun checks -> run `approval_gate.py` -> only then show a clean inline preview, brief summary, one validated SVG download, and the two-choice interactive approval/optimization form.
+
+**Never stop at the first PASS or defer mandatory audits to a later conversation.** If tools or source originals are inaccessible, actively try recovery within the same request. If genuinely blocked, identify the precise missing prerequisite, mark the workflow **BLOCKED / NOT DELIVERED**, do not claim it is complete, and do not show an approval control. Optimization can still be requested separately without granting approval. Intermediate evidence files, JSON reports, hash logs, 128/64 previews, and all-master sheets are internal by default; show only the main final image, exact SVG download, concise audit verdict, and functional approval/optimization control after all gates pass. The user should not need to ask for the missing audit.
+
+
 ## Fail-closed presentation gate (mandatory; supersedes any earlier approval-ready wording)
 **No asset may be presented as ready for approval unless `scripts/approval_gate.py` returns exit code 0 and creates `approval-authorization.json` for the exact candidate SHA-256.** The existing `AUTOMATED PREFLIGHT PASS` from `audit_workflow.py` is necessary but **not sufficient**. If a step is skipped, unavailable, inconclusive, or fails, report `BLOCKED / AUDIT INCOMPLETE`, repair, and rerun; never offer a functional approval decision for an unqualified candidate.
 
