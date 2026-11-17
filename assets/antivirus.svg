@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Antivirus V4 — protección verificada premium</title>
+  <desc id="asset-desc">Escudo original de perfil orgánico con contornos precisos y una sola marca de verificación de doble capa. Diseño editable con tres colores parametrizables y fondo transparente.</desc>
+  <style>
+    :root {
+      --PRIMARY: #092B60;
+      --SECONDARY: #38BDF8;
+      --CONTRAST: #FFFFFF;
+    }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="premium-antivirus-shield" aria-label="Escudo protector de perfil orgánico propio">
+    <path class="primary" id="shield-outer" d="M512 51 C546 51 576 72 620 93 C706 131 786 151 899 163 C920 308 908 474 862 623 C805 787 675 904 512 973 C349 904 219 787 162 623 C116 474 104 308 125 163 C238 151 318 131 404 93 C448 72 478 51 512 51 Z"/>
+    <path class="contrast" id="shield-recessed-white-outline" d="M512 85 C539 85 566 103 607 123 C689 159 765 180 871 193 C888 328 874 473 832 608 C777 758 655 865 512 935 C369 865 247 758 192 608 C150 473 136 328 153 193 C259 180 335 159 417 123 C458 103 485 85 512 85 Z"/>
+    <path class="secondary" id="shield-main-cyan-field" d="M512 120 C536 120 559 134 594 150 C675 187 751 209 842 221 C854 344 838 468 799 596 C744 729 635 826 512 891 C389 826 280 729 225 596 C186 468 170 344 182 221 C273 209 349 187 430 150 C465 134 488 120 512 120 Z"/>
+  </g>
+  <g id="single-premium-check" aria-label="Un solo check de protección activa con curvas y remates refinados">
+    <path class="contrast" id="check-outer-highlight" d="M438 701 C415 701 398 691 383 676 L268 561 C242 535 242 494 269 467 L293 443 C319 417 358 418 384 444 L439 499 L644 294 C671 267 710 270 737 297 L756 316 C783 343 783 382 756 409 L483 682 C469 696 455 701 438 701 Z"/>
+    <path class="primary" id="check-inner-navy" d="M438 654 C431 654 425 651 420 646 L301 527 C295 521 295 511 301 505 L323 483 C329 477 339 477 345 483 L438 576 L678 336 C684 330 694 330 700 336 L722 358 C728 364 728 374 722 380 L449 653 C446 656 442 654 438 654 Z"/>
+  </g>
+</svg>
