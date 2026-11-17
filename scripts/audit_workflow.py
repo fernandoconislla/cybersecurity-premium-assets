@@ -15,6 +15,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import urlparse
 
+from master_cache import resolve_masters
+
 SVG_NS = '{http://www.w3.org/2000/svg}'
 COLORS = {'primary': '#092B60', 'secondary': '#38BDF8', 'contrast': '#FFFFFF'}
 CRITERIA = ('recognition', 'premium_curves', 'composition', 'geometry',
@@ -106,14 +108,21 @@ def main():
           proc.stdout.startswith('PASS '),
           (proc.stdout + proc.stderr).strip() if proc else 'missing')
 
+    # Resolve ALL exact approved masters, either as existing local SVG files or
+    # from the pinned, fail-closed offline pack. The pack is a technical cache;
+    # VISUAL_STYLE.md remains the only internal DESIGN style reference.
+    resolved, master_issues = resolve_masters(root, output, expected)
+    check('Verified master source', not master_issues,
+          '; '.join(master_issues) if master_issues else 'Exact SHA-pinned bytes verified')
+    by_master = {name: (path, source, actual) for name, path, source, actual in resolved}
     official = []
     for name, hash_expected in sorted(expected.items()):
-        path = root / 'assets' / (name + '.svg')
-        actual = git_blob(path.read_bytes()) if path.is_file() else None
+        item = by_master.get(name)
+        actual = item[2] if item else None
         check('Approved master: ' + name, actual == hash_expected,
-              actual if actual else 'missing')
-        if actual == hash_expected:
-            official.append((name, path))
+              ((item[1] + ': ' + actual) if item else 'missing or invalid'))
+        if item and actual == hash_expected:
+            official.append((name, item[0]))
     check('All master count', len(official) == len(expected),
           str(len(official)) + '/' + str(len(expected)))
 
