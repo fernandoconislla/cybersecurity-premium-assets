@@ -68,5 +68,23 @@
       "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
     }
   },
-  "mode": "new"
+  "mode": "new",
+  "manual_evidence": {
+    "references_verified": {
+      "reviewed": false,
+      "finding": ""
+    },
+    "previews_inspected": {
+      "reviewed": false,
+      "finding": ""
+    },
+    "family_compared": {
+      "reviewed": false,
+      "finding": ""
+    },
+    "critical_defects_checked": {
+      "reviewed": false,
+      "finding": ""
+    }
+  }
 }
