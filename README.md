@@ -33,16 +33,20 @@ La skill utiliza [VISUAL_STYLE.md](skills/cybersecurity-premium-assets/VISUAL_ST
 **Nuevo punto de entrada:** [bootstrap_audit.py](scripts/bootstrap_audit.py). Obtiene y verifica un único [audit_runtime_bundle.json](scripts/audit_runtime_bundle.json) que incluye los scripts oficiales, el índice de los maestros y los 17 SVG exactos empaquetados. No requiere descargar cada maestro por separado.
 
 ```bash
-python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --execute
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --audit-only
+# Inspecciona las imágenes reales y registra manual_evidence. Si cambias el manifest, reaudita.
+python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --gate-only
 ```
 
 **Si el Python está aislado de GitHub (DNS/red bloqueada):** recuperar los dos archivos anteriores con el conector de GitHub, transferirlos efectivamente al sistema de archivos local (no basta con verlos en la respuesta del conector) y ejecutar:
 
 ```bash
-python scripts/bootstrap_audit.py --repo-root . --bundle /ruta/local/audit_runtime_bundle.json --offline --manifest work/manifest.json --execute
+python scripts/bootstrap_audit.py --repo-root . --bundle /ruta/local/audit_runtime_bundle.json --offline --manifest work/manifest.json --audit-only
+# Inspección visual; reauditar tras cualquier edición del manifiesto.
+python scripts/bootstrap_audit.py --repo-root . --bundle /ruta/local/audit_runtime_bundle.json --offline --manifest work/manifest.json --gate-only
 ```
 
-El bootstrap verifica los Git blobs del bundle, la correspondencia completa de los hashes de maestros, la procedencia del validador, las dependencias instaladas, el manifiesto y el hash del SVG candidato/anterior, y ejecuta `validate_asset.py`, `audit_workflow.py` y `approval_gate.py`. **No inventa evidencia de inspección y nunca publica assets.** La ausencia de un puente entre el conector y Python se informa como bloqueo explícito; no se simula una auditoría.
+El bootstrap verifica los Git blobs del bundle, la correspondencia completa de los hashes de maestros, la procedencia del validador, las dependencias instaladas, el manifiesto y el hash del SVG candidato/anterior. En la **fase de auditoría**, ejecuta `validate_asset.py` y `audit_workflow.py`; en la **fase posterior a la inspección humana**, ejecuta `approval_gate.py`. El informe queda invalidado si se cambia el manifiesto, y se debe reauditar. **No inventa evidencia de inspección y nunca publica assets.** La ausencia de un puente entre el conector y Python se informa como bloqueo explícito; no se simula una auditoría.
 
 Para mantener actualizado el paquete después de modificar scripts oficiales o publicar otro SVG aprobado (solo tras aprobación explícita):
 
