@@ -24,6 +24,18 @@ Ejemplos:
 {"nombre":"Servidor","descripcion":"Tres bandejas apiladas con indicadores frontales"}
 ```
 
+## Puerta de aprobación obligatoria
+
+Una auditoría técnica correcta **no** habilita por sí sola la solicitud de aprobación. Antes de presentar cualquier nuevo candidato se exige evidencia explícita de investigación e inspección humana, ejecución de los dos scripts oficiales, hashes válidos de 16 maestros, el SVG y sus previsualizaciones, y el recibo `APPROVAL GATE PASS`.
+
+```bash
+python scripts/validate_asset.py work/candidate.svg
+python scripts/audit_workflow.py --repo-root . --manifest work/manifest.json
+python scripts/approval_gate.py --repo-root . --manifest work/manifest.json --report work/audit/audit-report.json
+```
+
+El archivo `approval-authorization.json` autoriza **solo la presentación para aprobación del usuario**, nunca la publicación. El manifiesto requiere `manual_evidence` con cuatro verificaciones reales (referencias, previsualizaciones, comparación de familia y defectos críticos). Si faltan pruebas, el proceso se bloquea; no se pueden inventar hallazgos para completarlas.
+
 ## Validación
 ```bash
 pip install -r requirements.txt
