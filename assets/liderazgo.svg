@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<title>Liderazgo — Estrella sólida en el pecho · V4</title>
+<style>:root { --PRIMARY: #092B60; --SECONDARY: #38BDF8; --CONTRAST: #FFFFFF; }
+.primary { fill: var(--PRIMARY); }
+.secondary { fill: var(--SECONDARY); }
+.contrast { fill: var(--CONTRAST); }</style>
+<g id="liderazgo" transform="translate(0,-61)">
+<g id="equipo-izquierdo">
+  <path id="hombros-izq-borde" class="primary" d="M51 762 L51 673 C51 550 128 462 253 462 C378 462 455 550 455 673 L455 762 Q455 786 431 786 L75 786 Q51 786 51 762Z"/>
+  <path id="hombros-izq-filete" class="contrast" d="M88 745 L88 671 C88 571 154 500 253 500 C352 500 418 571 418 671 L418 745Z"/>
+  <path id="hombros-izq-campo" class="secondary" d="M105 747 L105 673 C105 585 164 521 253 521 C342 521 401 585 401 673 L401 747Z"/>
+  <circle id="cabeza-izq-aro" class="primary" cx="253" cy="352" r="107"/>
+  <circle id="cabeza-izq-filete" class="contrast" cx="253" cy="352" r="81"/>
+  <circle id="cabeza-izq-campo" class="secondary" cx="253" cy="352" r="66"/>
+</g>
+<g id="equipo-derecho">
+  <path id="hombros-der-borde" class="primary" d="M569 762 L569 673 C569 550 646 462 771 462 C896 462 973 550 973 673 L973 762 Q973 786 949 786 L593 786 Q569 786 569 762Z"/>
+  <path id="hombros-der-filete" class="contrast" d="M606 745 L606 671 C606 571 672 500 771 500 C870 500 936 571 936 671 L936 745Z"/>
+  <path id="hombros-der-campo" class="secondary" d="M623 747 L623 673 C623 585 682 521 771 521 C860 521 919 585 919 673 L919 747Z"/>
+  <circle id="cabeza-der-aro" class="primary" cx="771" cy="352" r="107"/>
+  <circle id="cabeza-der-filete" class="contrast" cx="771" cy="352" r="81"/>
+  <circle id="cabeza-der-campo" class="secondary" cx="771" cy="352" r="66"/>
+</g>
+<g id="lider-principal">
+  <path id="hombros-lider-borde" class="primary" d="M198 936 L198 743 C198 572 320 477 512 477 C704 477 826 572 826 743 L826 936 Q826 962 800 962 L224 962 Q198 962 198 936 Z"/>
+  <path id="hombros-lider-filete" class="contrast" d="M236 926 L236 744 C236 604 346 517 512 517 C678 517 788 604 788 744 L788 926 Z"/>
+  <path id="hombros-lider-campo" class="secondary" d="M254 925 L254 747 C254 621 355 536 512 536 C669 536 770 621 770 747 L770 925 Z"/>
+  <circle id="cabeza-lider-borde" class="primary" cx="512" cy="330" r="146"/>
+  <circle id="cabeza-lider-filete" class="contrast" cx="512" cy="330" r="111"/>
+  <circle id="cabeza-lider-campo" class="secondary" cx="512" cy="330" r="94"/>
+  <path id="estrella-lider-solida" class="primary" aria-label="Estrella azul marino sólida sobre el pecho" d="M 512 568 L 533.16 619.88 L 589.04 623.97 L 546.24 660.12 L 559.61 714.53 L 512 685 L 464.39 714.53 L 477.76 660.12 L 434.96 623.97 L 490.84 619.88 Z"/>
+</g>
+</g>
+</svg>
