@@ -128,6 +128,17 @@ def main():
           ', '.join(sorted(websites)) or 'none')
     check('Declared reference set', len(references) >= 3, len(references))
 
+    mode = manifest.get('mode')
+    check('Declared workflow mode', mode in ('new', 'revision'), mode or 'missing')
+    if mode == 'revision':
+        previous = (root / str(manifest.get('previous_candidate', 'MISSING'))).resolve()
+        previous_sha = manifest.get('previous_sha256')
+        check('Previous candidate SHA-256', previous.is_file() and
+              hashlib.sha256(previous.read_bytes()).hexdigest() == previous_sha,
+              previous_sha or 'missing')
+    else:
+        previous = None
+
     chromatic = manifest.get('chromatic_decision', {})
     check('Chromatic decision and rationale', isinstance(chromatic.get('split'), bool)
           and len(str(chromatic.get('rationale', '')).strip()) >= 20,
@@ -153,16 +164,10 @@ def main():
         family = output / 'family-comparison.png'
         contact_sheet(official + [(manifest['asset'] + ' ' + manifest['version'], candidate)], family)
         rendered['family'] = str(family)
-        if manifest.get('previous_candidate'):
-            previous = (root / manifest['previous_candidate']).resolve()
-            prev_sha = manifest.get('previous_sha256')
-            check('Previous candidate SHA-256', previous.is_file() and
-                  hashlib.sha256(previous.read_bytes()).hexdigest() == prev_sha,
-                  prev_sha or 'missing')
-            if checks[-1]['status'] == 'PASS':
-                compare = output / 'version-comparison.png'
-                contact_sheet([('Previous', previous), ('Candidate', candidate)], compare)
-                rendered['previous'] = str(compare)
+        if mode == 'revision':
+            compare = output / 'version-comparison.png'
+            contact_sheet([('Previous', previous), ('Candidate', candidate)], compare)
+            rendered['previous'] = str(compare)
 
     automated_pass = all(x['status'] == 'PASS' for x in checks)
     by_name = {c['rule']: c for c in checks}
