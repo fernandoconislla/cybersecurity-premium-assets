@@ -131,6 +131,8 @@ Evaluate each category separately with an evidence-based 0–10 score and a conc
 
 - `assets/virus.svg` — Approved Virus asset 16, version V2; a **single biological viral particle** with exactly twelve radially distributed organic spike receptors, rounded ends, a circular navy shell, an enclosed white rim and a cyan central capsid field; internal navy viral structures plus **two restrained white digital-circuit traces integrated within the same particle**, so the virus can also suggest computer malware without any competing screen, file, badge, shield, lock or computer. Preserve the organic silhouette, three-token editable vector construction and the exact approved SVG bytes (SHA-256 `13c42b9e2fcf0dbd90a9fde328f70ae3fad80c46e9d096ccbb40fa8422418194`). Differentiate this particle from approved insect-like `malware.svg` and routing-arrow `router.svg`.
 
+- `assets/liderazgo.svg` — Approved Liderazgo asset 17, version V4; three human figures with the central leader larger and in front, with **one solid navy five-pointed star positioned on the upper chest**. Uniform cyan interiors, dark navy outer contours, white enclosed dividers, and transparent background; precisely centered 1024×1024 geometry, 922px dominant horizontal span. **No raised arms, white or outlined stars, medals, separate badge containers, shadows, or decorative color splits.** Preserve the exact approved V4 SVG SHA-256 `1c49c4469ee6a9b0ce0541fa6e502c2eb174e610483c33d53b35b74fca8e37d6` and Git blob SHA `32ce8029853f1ad199084dd713b1025b76179777`. Previous V1–V3 variants are rejected/obsolete; do not restore them absent explicit revision.
+
 All approved references are equally authoritative examples of the same family, not interchangeable templates. The approved database geometry must not be changed by requests for unrelated concepts.
 
 ## Usage examples
@@ -149,6 +151,7 @@ All approved references are equally authoritative examples of the same family, n
 - `{"nombre":"Laptop"}` → reuse approved `assets/laptop.svg` V1; retain the frontal open screen and minimal keyboard deck, without regeneration unless explicitly revised.
 - `{"nombre":"Smartphone"}` → reuse approved `assets/smartphone.svg` V2; preserve its simplified frontal body and cyan display, without restoring rejected side buttons unless explicitly revised.
 - `{"nombre":"Virus"}` → reuse approved `assets/virus.svg` V2; preserve its twelve organic spikes and integrated internal circuit traces, without independently adding other protagonists unless explicitly revised.
+- `{"nombre":"Liderazgo"}` → reuse approved `assets/liderazgo.svg` V4; preserve exactly three figures and the solid navy star on the leader's chest. Never restore the raised arm or white star without a new explicit revision.
 - `{"nombre":"Firewall","descripcion":"Equipo de red con puertos visibles"}` → generate a NEW SVG using only the user-supplied parameters and comparing against all approved assets.
 
 **Design lesson from database V1 → V2:** an identifiable silhouette alone does not pass review. If separators float or decoration competes with the primary concept, simplify and reconnect the geometry before presenting a candidate.
