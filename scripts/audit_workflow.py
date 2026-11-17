@@ -165,16 +165,39 @@ def main():
                 rendered['previous'] = str(compare)
 
     automated_pass = all(x['status'] == 'PASS' for x in checks)
+    by_name = {c['rule']: c for c in checks}
+    validator_pass = by_name['Official validator PASS']['status'] == 'PASS'
+    masters_pass = by_name['All master count']['status'] == 'PASS' and all(
+        by_name['Approved master: ' + n]['status'] == 'PASS' for n in expected)
+    visual_files_pass = all(k in rendered and Path(rendered[k]).is_file()
+                            for k in ('1024', '128', '64', 'family'))
+    hard_rules = [
+        {'number': 1, 'name': '1024 square and transparent background', 'pass': validator_pass},
+        {'number': 2, 'name': 'Three exact CSS tokens and classes', 'pass': validator_pass},
+        {'number': 3, 'name': 'No forbidden colors, filters or raster', 'pass': validator_pass},
+        {'number': 4, 'name': '90% size and centered bounding box', 'pass': validator_pass},
+        {'number': 5, 'name': 'All immutable masters present and hash-verified', 'pass': masters_pass},
+        {'number': 6, 'name': 'Editable categorized vector shapes', 'pass': validator_pass},
+        {'number': 7, 'name': 'True SVG renders at three sizes and all-master sheet', 'pass': visual_files_pass},
+        {'number': 8, 'name': 'Explicit justified chromatic split decision',
+         'pass': by_name['Chromatic decision and rationale']['status'] == 'PASS'},
+    ]
     result = {'asset': manifest.get('asset'), 'version': manifest.get('version'),
               'candidate': str(candidate), 'sha256': sha,
               'automated_preflight': 'PASS' if automated_pass else 'FAIL',
-              'checks': checks, 'failures': issues, 'renders': rendered,
+              'checks': checks, 'hard_rules': hard_rules, 'failures': issues, 'renders': rendered,
               'manual_gates': ['Inspect actual renders and reference semantics',
                                'Verify external URLs and original source interpretation',
                                'Verify visible interactive approval form in chat'],
-              'publication_authorized': False}
+              'publication_authorized': False,
+              'ready_for_approval': automated_pass and visual.get('verdict') == 'READY FOR USER APPROVAL',
+              'human_review_required': True}
     (output / 'audit-report.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-    rows = ['| Verificación | Estado | Evidencia |', '|---|---|---|']
+    rows = ['| Regla dura | Estado automatizado |', '|---|---|']
+    for h in hard_rules:
+        rows.append('| ' + str(h['number']) + '. ' + h['name'] + ' | ' +
+                    ('PASS' if h['pass'] else 'FAIL') + ' |')
+    rows.extend(['', '| Verificación detallada | Estado | Evidencia |', '|---|---|---|'])
     for c in checks:
         rows.append('| ' + c['rule'].replace('|', '/') + ' | ' + c['status'] +
                     ' | ' + c['evidence'].replace('|', '/').replace('\n', ' ')[:140] + ' |')
@@ -182,6 +205,7 @@ def main():
     print('AUTOMATED PREFLIGHT ' + result['automated_preflight'])
     print('Candidate SHA256 ' + sha)
     print('Checks: ' + str(sum(x['status']=='PASS' for x in checks)) + '/' + str(len(checks)))
+    print('Hard rules: ' + str(sum(h['pass'] for h in hard_rules)) + '/8')
     print('Report: ' + str(output / 'audit-report.json'))
     if not automated_pass:
         for i in issues:
