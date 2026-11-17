@@ -18,6 +18,8 @@ Biblioteca de SVG premium para cursos de ciberseguridad.
 ## Uso
 La skill está en [skills/cybersecurity-premium-assets/SKILL.md](skills/cybersecurity-premium-assets/SKILL.md).
 
+**Guía visual general oficial:** [VISUAL_STYLE.md](skills/cybersecurity-premium-assets/VISUAL_STYLE.md). Para generar nuevos iconos, esta es la referencia interna de estilo; los SVG ya aprobados se consultan solamente para reutilización/revisión exacta y comprobaciones técnicas de integridad, no como plantillas visuales.
+
 Ejemplos:
 ```json
 {"nombre":"Base de datos"}
