@@ -2,7 +2,9 @@
 """Fail-closed bootstrap for official cybersecurity premium SVG audits.
 
 Usage:
-    python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --execute
+    python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --audit-only
+    # inspect the renders, complete truthful visual/manual evidence, re-audit if manifest changed
+    python scripts/bootstrap_audit.py --repo-root . --manifest work/manifest.json --gate-only
 
 Transport order:
   1) explicit --bundle PATH (a locally transferred audit_runtime_bundle.json);
@@ -185,7 +187,7 @@ def check_candidate(root, manifest_path):
     return manifest_file, output, actual
 
 
-def run_official(root, manifest_file, output):
+def run_official(root, manifest_file, output, phase='full'):
     commands = [
         [sys.executable, str(root / 'scripts/validate_asset.py'),
          str(within(root, json.loads(manifest_file.read_text(encoding='utf-8'))['candidate']))],
@@ -196,6 +198,12 @@ def run_official(root, manifest_file, output):
          '--report', str(output / 'audit-report.json')],
     ]
     names = ['validate_asset.py', 'audit_workflow.py', 'approval_gate.py']
+    if phase == 'audit':
+        names, commands = names[:2], commands[:2]
+    elif phase == 'gate':
+        names, commands = names[2:], commands[2:]
+    elif phase != 'full':
+        raise BootstrapError('INVALID_PHASE', 'Unknown phase ' + phase)
     for name, cmd in zip(names, commands):
         proc = subprocess.run(cmd, cwd=str(root), capture_output=True, text=True)
         print('STEP ' + name + ': ' + ('PASS' if proc.returncode == 0 else 'FAIL'))
@@ -206,6 +214,10 @@ def run_official(root, manifest_file, output):
         if proc.returncode:
             raise BootstrapError('OFFICIAL_STEP_FAILED',
                                  name + ' exited ' + str(proc.returncode) + '. No approval is authorized.')
+    if phase == 'audit':
+        print('AUDIT COMPLETE: inspect authentic 1024/128/64 renders and family comparison;')
+        print('record truthful manual_evidence, rerun audit if manifest changes, THEN run --gate-only.')
+        return None
     authorization = output / 'approval-authorization.json'
     if not authorization.is_file():
         raise BootstrapError('APPROVAL_RECEIPT_MISSING', 'Official approval receipt not created')
@@ -222,11 +234,18 @@ def main(argv=None):
     cli.add_argument('--offline', action='store_true', help='Never attempt outbound HTTPS')
     cli.add_argument('--repair', action='store_true', help='Replace stale official scripts from verified bundle')
     cli.add_argument('--manifest', type=Path, help='Candidate audit manifest relative to repository root')
-    cli.add_argument('--execute', action='store_true', help='Run all three official scripts and approval gate')
+    phases = cli.add_mutually_exclusive_group()
+    phases.add_argument('--audit-only', action='store_true',
+                        help='Run validator and auditor, then STOP for actual visual inspection')
+    phases.add_argument('--gate-only', action='store_true',
+                        help='Run approval gate only after inspection and an up-to-date audit')
+    phases.add_argument('--execute', action='store_true',
+                        help='Run all three steps ONLY if independent inspection was already completed')
     args = cli.parse_args(argv)
     root = args.repo_root.resolve()
-    if args.execute and not args.manifest:
-        print('BOOTSTRAP BLOCKED [MANIFEST_MISSING]: --execute requires --manifest', file=sys.stderr)
+    selected = 'audit' if args.audit_only else 'gate' if args.gate_only else 'full' if args.execute else None
+    if selected and not args.manifest:
+        print('BOOTSTRAP BLOCKED [MANIFEST_MISSING]: selected phase requires --manifest', file=sys.stderr)
         return 2
     try:
         bundle, source = load_bundle(root, args.bundle, args.offline)
@@ -234,13 +253,16 @@ def main(argv=None):
         print('BUNDLE VERIFIED: ' + str(len(verified)) + ' official files, ' + str(total) + ' pinned masters; source=' + source)
         staged = install(root, verified, repair=args.repair)
         print('BOOTSTRAP PASS: ' + str(len(staged)) + ' official files staged')
-        if args.execute:
+        if selected:
             check_dependencies()
             manifest_file, output, sha = check_candidate(root, args.manifest)
             print('CANDIDATE VERIFIED: ' + sha)
-            receipt = run_official(root, manifest_file, output)
-            print('APPROVAL GATE PASS: ' + str(receipt))
-            print('PUBLICATION AUTHORIZED: false')
+            receipt = run_official(root, manifest_file, output, phase=selected)
+            if receipt:
+                print('APPROVAL GATE PASS: ' + str(receipt))
+                print('PUBLICATION AUTHORIZED: false')
+            else:
+                print('APPROVAL GATE NOT RUN: manual inspection required')
         return 0
     except BootstrapError as exc:
         print('BOOTSTRAP BLOCKED [' + exc.code + ']: ' + str(exc), file=sys.stderr)
