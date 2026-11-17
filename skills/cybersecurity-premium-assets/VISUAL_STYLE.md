@@ -1,6 +1,6 @@
 # Guía visual maestra — Cybersecurity Premium Assets
 
-**Estado:** referencia oficial del **estilo visual** de la familia. **Base de observación:** 17 SVG aprobados en el catálogo de GitHub al 17-11-2026. **Alcance:** síntesis general de lo que comparten; no es una plantilla de un asset concreto ni un inventario de sus siluetas.
+**Estado:** referencia oficial del **estilo visual** de la familia. **Base de observación:** maestros aprobados y publicados en GitHub (18 al 17-11-2026). **Alcance:** síntesis general de lo que comparten; no es una plantilla de un asset concreto ni un inventario de sus siluetas. Se actualiza el conteo al publicarse nuevos maestros, nunca al aprobarse solo un diseño visual.
 
 ## 1. Identidad visual
 
@@ -35,6 +35,14 @@ Definir exactamente `--PRIMARY`, `--SECONDARY`, `--CONTRAST` y las clases SVG `.
 - Un protagonista visual, centro de atención inmediato, proporciones equilibradas y margen de seguridad. El concepto se reconoce primero por la **silueta global**, después por el detalle central.
 - No imponer marcos, círculos, escudos, badges, etiquetas, papeles, pantallas, cadenas, candados, chips ni estrellas a un concepto que no los requiere.
 - Los detalles complementarios se integran **en el cuerpo del protagonista** y son pocos, claros y útiles; evitar que se conviertan en un segundo protagonista. Una figura más grande o una marca distintiva se usa solo si el significado la exige.
+
+## 4.1. Proporciones, listas y elementos repetidos
+
+**El lienzo siempre es cuadrado 1:1; el objeto interno no tiene por qué serlo.** Un portapapeles, teléfono o columna puede ser vertical; una lista o pieza extendida puede requerir más anchura. Si el usuario pide "más ancho", ajustar solo la proporción de la forma interna manteniendo `1024×1024`, dimensión dominante ≈922 y centrado geométrico. Nunca estirar una geometría con una escala no uniforme para rellenar el lienzo.
+
+Para listas, controles de verificación, puertos, botones, ventanas o series de elementos: respetar exactamente el **número solicitado**; usar posiciones, anchos y separaciones rítmicas verificables. Cada fila debe ser una unidad vectorial claramente agrupada e identificada. Evitar que marcas de verificación sobresalgan hasta tocar textos o líneas, que las filas se compriman, o que el espacio libre quede descompensado arriba o abajo. El número de elementos de un candidato no se convierte en norma fija para todos los futuros iconos.
+
+La legibilidad a 64 px y la identidad de familia prevalecen sobre llenar cada rincón. Optimizar la masa principal, no añadir ornamentos para ocupar vacíos.
 
 ## 5. Densidad de detalle y legibilidad
 
