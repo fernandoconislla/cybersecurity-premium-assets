@@ -169,6 +169,7 @@ def main():
             contact_sheet([('Previous', previous), ('Candidate', candidate)], compare)
             rendered['previous'] = str(compare)
 
+    render_sha256 = {name: hashlib.sha256(Path(path).read_bytes()).hexdigest() for name, path in rendered.items()}
     automated_pass = all(x['status'] == 'PASS' for x in checks)
     by_name = {c['rule']: c for c in checks}
     validator_pass = by_name['Official validator PASS']['status'] == 'PASS'
@@ -190,7 +191,9 @@ def main():
     result = {'asset': manifest.get('asset'), 'version': manifest.get('version'),
               'candidate': str(candidate), 'sha256': sha,
               'automated_preflight': 'PASS' if automated_pass else 'FAIL',
+              'manifest_sha256': hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
               'checks': checks, 'hard_rules': hard_rules, 'failures': issues, 'renders': rendered,
+              'render_sha256': render_sha256,
               'manual_gates': ['Inspect actual renders and reference semantics',
                                'Verify external URLs and original source interpretation',
                                'Verify visible interactive approval form in chat'],
