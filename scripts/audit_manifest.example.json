@@ -1,0 +1,71 @@
+{
+  "asset": "Nombre del asset",
+  "version": "V1",
+  "candidate": "candidatos/asset-v1.svg",
+  "candidate_sha256": "REEMPLAZAR_CON_SHA256_REAL",
+  "output_dir": "candidatos/auditoria",
+  "references": [
+    {
+      "url": "https://lucide.dev/icons/wifi",
+      "visual_trait": "Describir rasgo verificado de la fuente",
+      "decision": "Explicar si se adopta o rechaza"
+    },
+    {
+      "url": "https://icons.getbootstrap.com/icons/wifi/",
+      "visual_trait": "Describir rasgo verificado de la fuente",
+      "decision": "Explicar si se adopta o rechaza"
+    },
+    {
+      "url": "https://fluenticons.co/icon/wifi/",
+      "visual_trait": "Describir rasgo verificado de la fuente",
+      "decision": "Explicar si se adopta o rechaza"
+    }
+  ],
+  "chromatic_decision": {
+    "split": false,
+    "rationale": "Justificar con precisión el uso del color y la ausencia de división arbitraria."
+  },
+  "visual_audit": {
+    "verdict": "REQUIRES REVISION",
+    "recognition": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "premium_curves": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "composition": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "geometry": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "optical_balance": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "family_consistency": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "color_roles": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "small_size": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "reference_fidelity": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    },
+    "family_color_balance": {
+      "score": 0,
+      "finding": "Sustituir con un hallazgo visual concreto antes de ejecutar."
+    }
+  }
+}
