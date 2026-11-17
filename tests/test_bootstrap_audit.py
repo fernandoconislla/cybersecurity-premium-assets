@@ -116,6 +116,44 @@ class BootstrapAuditTests(unittest.TestCase):
         }
         (self.root / 'work/manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
 
+    def test_08a_audit_phase_stops_before_approval(self):
+        self.prepare_manifest()
+        result = self.call('--offline', '--bundle', str(BUNDLE),
+                           '--manifest', 'work/manifest.json', '--audit-only')
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn('STEP audit_workflow.py: PASS', result.stdout)
+        self.assertIn('APPROVAL GATE NOT RUN', result.stdout)
+        self.assertTrue((self.root / 'work/audit/candidate-64.png').exists())
+        self.assertFalse((self.root / 'work/audit/approval-authorization.json').exists())
+
+    def test_08b_gate_phase_requires_existing_audit_report(self):
+        self.prepare_manifest()
+        result = self.call('--offline', '--bundle', str(BUNDLE),
+                           '--manifest', 'work/manifest.json', '--gate-only')
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('OFFICIAL_STEP_FAILED', result.stderr)
+
+    def test_08c_manual_manifest_change_requires_reaudit_before_gate(self):
+        self.prepare_manifest()
+        audit = self.call('--offline', '--bundle', str(BUNDLE),
+                          '--manifest', 'work/manifest.json', '--audit-only')
+        self.assertEqual(audit.returncode, 0, audit.stdout + audit.stderr)
+        file = self.root / 'work/manifest.json'
+        data = json.loads(file.read_text())
+        data['manual_evidence']['previews_inspected']['finding'] += ' New independent observation.'
+        file.write_text(json.dumps(data))
+        stale = self.call('--offline', '--bundle', str(BUNDLE),
+                          '--manifest', 'work/manifest.json', '--gate-only')
+        self.assertNotEqual(stale.returncode, 0)
+        self.assertIn('OFFICIAL_STEP_FAILED', stale.stderr)
+        refreshed = self.call('--offline', '--bundle', str(BUNDLE),
+                              '--manifest', 'work/manifest.json', '--audit-only')
+        self.assertEqual(refreshed.returncode, 0, refreshed.stdout + refreshed.stderr)
+        gate = self.call('--offline', '--bundle', str(BUNDLE),
+                         '--manifest', 'work/manifest.json', '--gate-only')
+        self.assertEqual(gate.returncode, 0, gate.stdout + gate.stderr)
+        self.assertIn('APPROVAL GATE PASS', gate.stdout)
+
     def test_08_exact_offline_bundle_executes_all_three_official_scripts(self):
         self.prepare_manifest()
         result = self.call('--offline', '--bundle', str(BUNDLE),
