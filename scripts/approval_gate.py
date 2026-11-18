@@ -14,7 +14,7 @@ CRITERIA = ('recognition', 'premium_curves', 'composition', 'geometry',
             'optical_balance', 'family_consistency', 'color_roles',
             'small_size', 'reference_fidelity', 'family_color_balance')
 REQUIRED_REVIEWS = ('references_verified', 'previews_inspected',
-                    'family_compared', 'critical_defects_checked')
+                    'style_description_reviewed', 'critical_defects_checked')
 
 
 def digest(path):
@@ -70,7 +70,7 @@ def verify(root, manifest_path, report_path):
             errors.append('Manual review missing: ' + name)
     renders = report.get('renders', {})
     hashes = report.get('render_sha256', {})
-    required = ('1024', '128', '64', 'family') + (('previous',) if manifest.get('mode') == 'revision' else ())
+    required = ('1024', '128', '64') + (('previous',) if manifest.get('mode') == 'revision' else ())
     for name in required:
         raw = renders.get(name)
         if not raw:
@@ -79,15 +79,14 @@ def verify(root, manifest_path, report_path):
         path = Path(raw).resolve()
         if not path.is_relative_to(output) or not path.is_file() or digest(path) != hashes.get(name):
             errors.append('Render missing, altered or outside audit directory: ' + name)
-    index = within(root, 'scripts/approved_masters.json')
-    if not index.is_file():
-        errors.append('Master index missing')
-    else:
-        pinned = json.loads(index.read_text(encoding='utf-8'))
-        expected_master_checks = {'Approved master: ' + key for key in pinned}
-        passed_master_checks = {c.get('rule') for c in checks if c.get('status') == 'PASS'}
-        if not pinned or not expected_master_checks.issubset(passed_master_checks):
-            errors.append('Incomplete approved-master checks')
+    style_file = within(root, 'skills/cybersecurity-premium-assets/VISUAL_STYLE.md')
+    if (not style_file.is_file() or
+            report.get('style_description') != str(style_file) or
+            report.get('style_description_sha256') != digest(style_file)):
+        errors.append('Canonical style description missing or altered')
+    style_checks = {c.get('rule') for c in checks if c.get('status') == 'PASS'}
+    if 'Canonical style description' not in style_checks:
+        errors.append('Canonical style-description check missing')
     return errors, manifest, report, candidate, output
 
 

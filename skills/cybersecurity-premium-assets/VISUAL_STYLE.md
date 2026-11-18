@@ -81,11 +81,11 @@ Se rechaza si aparece cualquiera de estos defectos: concepto ambiguo evitable, c
 
 ## 9. Política de consulta — fuente de verdad y excepciones
 
-**Diseñar / revisar estilo de un asset NUEVO:** leer **este archivo** como **única referencia interna de estilo de la familia**. No abrir ni inspeccionar los 17 SVG aprobados para “averiguar cómo debe verse”; investigar aparte las referencias **semánticas externas** y usar la imagen del usuario cuando exista. Evaluar la coherencia por las reglas aquí documentadas.
+**Diseñar / revisar estilo de un asset NUEVO:** leer **este archivo** como **única referencia interna de estilo de la familia**. No abrir ni inspeccionar los SVG aprobados para “averiguar cómo debe verse”; investigar aparte las referencias **semánticas externas** y usar la imagen del usuario cuando exista. Evaluar la coherencia por las reglas aquí documentadas.
 
 **Revisar un asset EXISTENTE:** recuperar los **bytes exactos del SVG objetivo**, su hash y la versión previa cuando corresponda. La guía describe la familia; **no sustituye el asset que se está editando**.
 
-**Auditar / publicar:** los 17 masters continúan siendo **originales inmutables**. Los scripts oficiales actuales pueden exigir sus bytes/hashes y la hoja comparativa para integridad y trazabilidad. Ese acceso es **verificación técnica**, **no investigación de estilo** y **no autoriza copiar su geometría**. No omitir ni falsear un control porque la guía ya exista.
+**Auditar:** evaluar exclusivamente este archivo como referencia visual interna; no crear hojas comparativas de los 18 SVG maestros. **Publicar:** conservar por separado los 18 originales inmutables y verificar sus hashes, sin usarlos para juzgar el estilo de un candidato. No omitir ni falsear un control porque la guía ya exista.
 
 **Después de publicar:** actualizar el catálogo/hash como siempre. Modificar esta guía **solo si una aprobación introduce una regla visual general nueva**; no agregar una descripción de cada icono aprobado ni reescribirla en cada generación.
 

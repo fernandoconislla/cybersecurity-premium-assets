@@ -3,7 +3,7 @@
 
 Uso: python scripts/audit_workflow.py --manifest trabajo/audit-manifest.json
 El manifest declara candidato, referencias, auditoría humana y directorio de salida.
-El inventario versionado scripts/approved_masters.json fija los SHA Git de masters.
+La descripción de estilo VISUAL_STYLE.md se verifica por Git blob; no compara SVG maestros.
 """
 import argparse
 import hashlib
@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import urlparse
 
-from master_cache import resolve_masters
+
 
 SVG_NS = '{http://www.w3.org/2000/svg}'
 COLORS = {'primary': '#092B60', 'secondary': '#38BDF8', 'contrast': '#FFFFFF'}
@@ -23,6 +23,8 @@ CRITERIA = ('recognition', 'premium_curves', 'composition', 'geometry',
             'optical_balance', 'family_consistency', 'color_roles',
             'small_size', 'reference_fidelity', 'family_color_balance')
 VALIDATOR_BLOB_SHA = '180e8a751d527eb23dd1a2244b44952e085bf083'
+STYLE_BLOB_SHA = 'ff2ad6be6d9884a0849ab8942f77c3727749daaf'
+STYLE_PATH = Path('skills/cybersecurity-premium-assets/VISUAL_STYLE.md')
 
 
 def git_blob(data):
@@ -73,7 +75,6 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', required=True, type=Path)
     parser.add_argument('--repo-root', default='.', type=Path)
-    parser.add_argument('--index', default='scripts/approved_masters.json', type=Path)
     args = parser.parse_args()
     root = args.repo_root.resolve()
     manifest = json.loads(args.manifest.read_text(encoding='utf-8'))
@@ -88,9 +89,6 @@ def main():
         if not condition:
             issues.append(label + ': ' + str(evidence))
 
-    expected = json.loads((root / args.index).read_text(encoding='utf-8'))
-    if not isinstance(expected, dict) or not expected:
-        raise ValueError('Approved master index must be nonempty dictionary')
     check('Candidate file', candidate.is_file(), candidate)
     if not candidate.is_file():
         raise FileNotFoundError(candidate)
@@ -108,23 +106,13 @@ def main():
           proc.stdout.startswith('PASS '),
           (proc.stdout + proc.stderr).strip() if proc else 'missing')
 
-    # Resolve ALL exact approved masters, either as existing local SVG files or
-    # from the pinned, fail-closed offline pack. The pack is a technical cache;
-    # VISUAL_STYLE.md remains the only internal DESIGN style reference.
-    resolved, master_issues = resolve_masters(root, output, expected)
-    check('Verified master source', not master_issues,
-          '; '.join(master_issues) if master_issues else 'Exact SHA-pinned bytes verified')
-    by_master = {name: (path, source, actual) for name, path, source, actual in resolved}
-    official = []
-    for name, hash_expected in sorted(expected.items()):
-        item = by_master.get(name)
-        actual = item[2] if item else None
-        check('Approved master: ' + name, actual == hash_expected,
-              ((item[1] + ': ' + actual) if item else 'missing or invalid'))
-        if item and actual == hash_expected:
-            official.append((name, item[0]))
-    check('All master count', len(official) == len(expected),
-          str(len(official)) + '/' + str(len(expected)))
+    # The sole internal visual reference is the version-pinned style DESCRIPTION.
+    # Master SVG hashes are checked separately in the publication workflow.
+    style_file = (root / STYLE_PATH).resolve()
+    style_valid = style_file.is_file() and git_blob(style_file.read_bytes()) == STYLE_BLOB_SHA
+    check('Canonical style description', style_valid,
+          (git_blob(style_file.read_bytes()) if style_file.is_file() else 'missing') +
+          ' / expected ' + STYLE_BLOB_SHA)
 
     references = manifest.get('references', [])
     websites = set()
@@ -162,7 +150,7 @@ def main():
           ('READY FOR USER APPROVAL', 'REQUIRES REVISION', 'TECHNICALLY INVALID'),
           visual.get('verdict', 'missing'))
 
-    # Do not provide misleading previews if any provenance, validator or master fails.
+    # Do not provide misleading previews if validator, candidate or style provenance fails.
     base_pass = all(c['status'] == 'PASS' for c in checks)
     rendered = {}
     if base_pass:
@@ -170,9 +158,6 @@ def main():
             dest = output / ('candidate-' + str(size) + '.png')
             render(candidate, size).save(dest)
             rendered[str(size)] = str(dest)
-        family = output / 'family-comparison.png'
-        contact_sheet(official + [(manifest['asset'] + ' ' + manifest['version'], candidate)], family)
-        rendered['family'] = str(family)
         if mode == 'revision':
             compare = output / 'version-comparison.png'
             contact_sheet([('Previous', previous), ('Candidate', candidate)], compare)
@@ -182,18 +167,16 @@ def main():
     automated_pass = all(x['status'] == 'PASS' for x in checks)
     by_name = {c['rule']: c for c in checks}
     validator_pass = by_name['Official validator PASS']['status'] == 'PASS'
-    masters_pass = by_name['All master count']['status'] == 'PASS' and all(
-        by_name['Approved master: ' + n]['status'] == 'PASS' for n in expected)
     visual_files_pass = all(k in rendered and Path(rendered[k]).is_file()
-                            for k in ('1024', '128', '64', 'family'))
+                            for k in ('1024', '128', '64'))
     hard_rules = [
         {'number': 1, 'name': '1024 square and transparent background', 'pass': validator_pass},
         {'number': 2, 'name': 'Three exact CSS tokens and classes', 'pass': validator_pass},
         {'number': 3, 'name': 'No forbidden colors, filters or raster', 'pass': validator_pass},
         {'number': 4, 'name': '90% size and centered bounding box', 'pass': validator_pass},
-        {'number': 5, 'name': 'All immutable masters present and hash-verified', 'pass': masters_pass},
+        {'number': 5, 'name': 'Canonical style-description verified by Git blob', 'pass': style_valid},
         {'number': 6, 'name': 'Editable categorized vector shapes', 'pass': validator_pass},
-        {'number': 7, 'name': 'True SVG renders at three sizes and all-master sheet', 'pass': visual_files_pass},
+        {'number': 7, 'name': 'True SVG renders at 1024, 128 and 64px', 'pass': visual_files_pass},
         {'number': 8, 'name': 'Explicit justified chromatic split decision',
          'pass': by_name['Chromatic decision and rationale']['status'] == 'PASS'},
     ]
@@ -203,6 +186,8 @@ def main():
               'manifest_sha256': hashlib.sha256(args.manifest.read_bytes()).hexdigest(),
               'checks': checks, 'hard_rules': hard_rules, 'failures': issues, 'renders': rendered,
               'render_sha256': render_sha256,
+              'style_description': str(style_file),
+              'style_description_sha256': hashlib.sha256(style_file.read_bytes()).hexdigest() if style_valid else None,
               'manual_gates': ['Inspect actual renders and reference semantics',
                                'Verify external URLs and original source interpretation',
                                'Verify visible interactive approval form in chat'],

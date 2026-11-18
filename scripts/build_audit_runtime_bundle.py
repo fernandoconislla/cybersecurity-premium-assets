@@ -20,6 +20,7 @@ FILES = (
     'scripts/audit_workflow.py',
     'scripts/approval_gate.py',
     'scripts/validate_asset.py',
+    'skills/cybersecurity-premium-assets/VISUAL_STYLE.md',
 )
 
 
@@ -65,7 +66,7 @@ def main(argv=None):
         if args.check:
             if not dest.is_file() or json.loads(dest.read_text(encoding='utf-8')) != expected:
                 raise ValueError('Runtime bundle is missing or stale; run --write')
-            print('AUDIT RUNTIME BUNDLE PASS: 6 official files and ' +
+            print('AUDIT RUNTIME BUNDLE PASS: 7 official files and ' +
                   str(len(json.loads(expected['files']['scripts/approved_masters.json']['content']))) +
                   ' SHA-pinned masters')
         else:

@@ -39,6 +39,7 @@ REQUIRED = (
     'scripts/audit_workflow.py',
     'scripts/approval_gate.py',
     'scripts/validate_asset.py',
+    'skills/cybersecurity-premium-assets/VISUAL_STYLE.md',
 )
 URL = 'https://raw.githubusercontent.com/' + REPO + '/main/scripts/audit_runtime_bundle.json'
 
@@ -90,7 +91,7 @@ def verify_bundle(bundle):
         raise BootstrapError('INVALID_BUNDLE', 'Incorrect bundle format or repository')
     files = bundle.get('files')
     if not isinstance(files, dict) or set(files) != set(REQUIRED):
-        raise BootstrapError('INCOMPLETE_BUNDLE', 'Six required runtime files must appear exactly once')
+        raise BootstrapError('INCOMPLETE_BUNDLE', 'Seven required runtime files must appear exactly once')
     data = {}
     for name in REQUIRED:
         obj = files.get(name)

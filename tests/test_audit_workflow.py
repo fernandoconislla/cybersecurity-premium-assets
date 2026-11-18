@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regressions: exact pinned masters, reference evidence and revision continuity."""
+"""Regressions: canonical style description, reference evidence and revision continuity."""
 import hashlib
 import json
 import shutil
@@ -25,6 +25,9 @@ class WorkflowAuditTests(unittest.TestCase):
         (self.root / 'work').mkdir()
         for filename in ('audit_workflow.py', 'approval_gate.py', 'validate_asset.py', 'master_cache.py', 'approved_masters.json', 'approved_masters_pack.json'):
             shutil.copyfile(SOURCE_ROOT / 'scripts' / filename, self.root / 'scripts' / filename)
+        (self.root / 'skills/cybersecurity-premium-assets').mkdir(parents=True)
+        shutil.copyfile(SOURCE_ROOT / 'skills/cybersecurity-premium-assets/VISUAL_STYLE.md',
+                        self.root / 'skills/cybersecurity-premium-assets/VISUAL_STYLE.md')
         index = json.loads((self.root / 'scripts/approved_masters.json').read_text())
         for name in index:
             shutil.copyfile(SOURCE_ROOT / 'assets' / (name + '.svg'),
@@ -61,34 +64,24 @@ class WorkflowAuditTests(unittest.TestCase):
         self.assertEqual(report['automated_preflight'], 'PASS')
         self.assertTrue(all(item['pass'] for item in report['hard_rules']))
         self.assertTrue(all(Path(report['renders'][k]).is_file()
-                            for k in ('1024', '128', '64', 'family')))
+                            for k in ('1024', '128', '64')))
         self.assertFalse(report['publication_authorized'])
         self.assertTrue(report['human_review_required'])
 
-    def test_02_modified_master_fails(self):
-        with (self.root / 'assets/cloud.svg').open('ab') as f:
-            f.write(b'\n<!-- unapproved change -->\n')
+    def test_02_modified_style_description_fails(self):
+        with (self.root / 'skills/cybersecurity-premium-assets/VISUAL_STYLE.md').open('a') as f:
+            f.write('\\n<!-- unapproved description change -->\\n')
         run, report = self.execute()
         self.assertNotEqual(run.returncode, 0)
-        self.assertIn('Approved master: cloud', '\n'.join(report['failures']))
+        self.assertIn('Canonical style description', '\\n'.join(report['failures']))
 
-    def test_02b_offline_exact_master_pack_passes_without_local_originals(self):
+    def test_02b_missing_local_masters_does_not_block_style_audit(self):
         for name in json.loads((self.root / 'scripts/approved_masters.json').read_text()):
             (self.root / 'assets' / (name + '.svg')).unlink()
         run, report = self.execute()
         self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
         self.assertEqual(report['automated_preflight'], 'PASS')
-        self.assertTrue((self.root / 'work/audit/verified_masters/cloud.svg').is_file())
-        self.assertTrue(Path(report['renders']['family']).is_file())
-
-    def test_02c_tampered_pack_blocks_even_if_originals_exist(self):
-        path = self.root / 'scripts/approved_masters_pack.json'
-        content = json.loads(path.read_text())
-        content['assets']['cloud'] += '\\n<!-- modified cache -->\\n'
-        path.write_text(json.dumps(content))
-        run, report = self.execute()
-        self.assertNotEqual(run.returncode, 0)
-        self.assertIn('Verified master source', '\\n'.join(report['failures']))
+        self.assertNotIn('family', report['renders'])
 
     def test_03_missing_reference_fails(self):
         self.manifest['references'] = self.manifest['references'][:2]
@@ -120,7 +113,7 @@ class WorkflowAuditTests(unittest.TestCase):
         self.manifest['manual_evidence'] = {
             name: {'reviewed': True, 'finding': 'Reviewed original evidence and found no blocking issue.'}
             for name in ('references_verified', 'previews_inspected',
-                         'family_compared', 'critical_defects_checked')
+                         'style_description_reviewed', 'critical_defects_checked')
         }
 
     def test_06_gate_blocks_missing_manual_evidence(self):

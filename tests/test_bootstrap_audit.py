@@ -111,7 +111,7 @@ class BootstrapAuditTests(unittest.TestCase):
                                   for k in FIELDS}, 'verdict': 'READY FOR USER APPROVAL'},
             'manual_evidence': {
                 k: {'reviewed': True, 'finding': 'Fixture-only test evidence; not a real design review.'}
-                for k in ('references_verified', 'previews_inspected', 'family_compared', 'critical_defects_checked')
+                for k in ('references_verified', 'previews_inspected', 'style_description_reviewed', 'critical_defects_checked')
             },
         }
         (self.root / 'work/manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
@@ -167,7 +167,7 @@ class BootstrapAuditTests(unittest.TestCase):
         receipt = json.loads((self.root / 'work/audit/approval-authorization.json').read_text())
         self.assertEqual(receipt['status'], 'READY_FOR_USER_REVIEW')
         self.assertFalse(receipt['publication_authorized'])
-        self.assertTrue((self.root / 'work/audit/verified_masters/cloud.svg').exists())
+        self.assertTrue((self.root / 'skills/cybersecurity-premium-assets/VISUAL_STYLE.md').exists())
 
 
 if __name__ == '__main__':
