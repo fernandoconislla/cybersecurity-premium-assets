@@ -12,7 +12,7 @@ Biblioteca de SVG premium para cursos de ciberseguridad.
 - Blanco solo en elementos internos. Exterior contrastante sobre blanco.
 - Dimensión dominante visible ≈922 unidades (90 % ±2 %), centrado en ambos ejes, sin distorsión.
 - Misma identidad geométrica y densidad visual que el asset maestro; no añadir escudos a temas que no lo requieran.
-- Validar geometría, paleta y legibilidad a 64/128 px, y comparar cada propuesta con el maestro.
+- Validar geometría, paleta y legibilidad a 1024/128/64 px y contrastar cada propuesta con VISUAL_STYLE.md.
 - No aprobar sin visto bueno del usuario.
 
 ## Uso
@@ -70,7 +70,7 @@ python scripts/audit_workflow.py --repo-root . --manifest work/manifest.json
 python scripts/approval_gate.py --repo-root . --manifest work/manifest.json --report work/audit/audit-report.json
 ```
 
-El archivo `approval-authorization.json` autoriza **solo la presentación para aprobación del usuario**, nunca la publicación. El manifiesto requiere `manual_evidence` con cuatro verificaciones reales (referencias, previsualizaciones, comparación de familia y defectos críticos). Si faltan pruebas, el proceso se bloquea; no se pueden inventar hallazgos para completarlas.
+El archivo `approval-authorization.json` autoriza **solo la presentación para aprobación del usuario**, nunca la publicación. El manifiesto requiere `manual_evidence` con cuatro verificaciones reales (referencias, previsualizaciones, revisión del documento VISUAL_STYLE.md y defectos críticos). Si faltan pruebas, el proceso se bloquea; no se pueden inventar hallazgos para completarlas.
 
 ## Validación
 ```bash
@@ -80,6 +80,13 @@ python scripts/validate_asset.py assets/*.svg
 ```
 
 SVG con variables CSS: el validador resuelve las variables solamente en una copia temporal para comprobar la geometría renderizada. El archivo fuente sigue editable.
+
+## Asset maestro 19 — Lista de verificación (V2)
+
+- [SVG vectorial editable aprobado](assets/lista-de-verificacion.svg) — SHA-256 `d6a7364d6bdc755f535a13e573b64cd32d9c86107b14d8d7df18a58bc3a1d8db`.
+- Lienzo 1024×1024, portapapeles 734×922 centrado y **cinco verificaciones** uniformemente distribuidas.
+- Auditoría visual contra `VISUAL_STYLE.md`, sin comparación visual con los maestros; auditoría técnica y gate oficiales superados.
+- Los 18 maestros anteriores conservan sus SHA originales; índice, paquete y bundle registran ahora 19 maestros.
 
 ## Asset maestro 18 — Caja tecnología proveedor (V8)
 

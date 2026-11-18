@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="asset-title asset-desc">
+  <title id="asset-title">Lista de verificación V2</title>
+  <desc id="asset-desc">Portapapeles premium más ancho, con cinco elementos verificados, bordes equilibrados y clip superior integrado.</desc>
+  <style>
+    :root { --PRIMARY: #092B60; --SECONDARY: #38BDF8; --CONTRAST: #FFFFFF; }
+    .primary { fill: var(--PRIMARY); }
+    .secondary { fill: var(--SECONDARY); }
+    .contrast { fill: var(--CONTRAST); }
+  </style>
+  <g id="portapapeles">
+    <g id="cuerpo-principal">
+      <rect id="marco-exterior" class="primary" x="145" y="51" width="734" height="922" rx="68"/>
+      <rect id="filete-interior" class="contrast" x="177" y="83" width="670" height="858" rx="58"/>
+      <rect id="superficie-cian" class="secondary" x="207" y="113" width="610" height="798" rx="48"/>
+    </g>
+    <g id="clip-superior">
+      <rect id="clip-marco" class="primary" x="382" y="51" width="260" height="177" rx="54"/>
+      <rect id="clip-filete" class="contrast" x="415" y="81" width="194" height="116" rx="39"/>
+      <rect id="clip-centro" class="secondary" x="445" y="108" width="134" height="62" rx="27"/>
+    </g>
+    <g id="lista-de-cinco-verificaciones">
+    <g id="item-1" transform="translate(0,0)">
+      <rect id="item-1-casilla" class="primary" x="259" y="273" width="90" height="90" rx="23"/>
+      <path id="item-1-verificado" class="contrast" d="M275 317 L288 304 L306 321 L330 292 L339 301 L306 339 Z"/>
+      <rect id="item-1-texto-1" class="primary" x="404" y="289" width="350" height="23" rx="11.5"/>
+      <rect id="item-1-texto-2" class="primary" x="404" y="328" width="271" height="18" rx="9"/>
+    </g>
+    <g id="item-2" transform="translate(0,126)">
+      <rect id="item-2-casilla" class="primary" x="259" y="273" width="90" height="90" rx="23"/>
+      <path id="item-2-verificado" class="contrast" d="M275 317 L288 304 L306 321 L330 292 L339 301 L306 339 Z"/>
+      <rect id="item-2-texto-1" class="primary" x="404" y="289" width="350" height="23" rx="11.5"/>
+      <rect id="item-2-texto-2" class="primary" x="404" y="328" width="271" height="18" rx="9"/>
+    </g>
+    <g id="item-3" transform="translate(0,252)">
+      <rect id="item-3-casilla" class="primary" x="259" y="273" width="90" height="90" rx="23"/>
+      <path id="item-3-verificado" class="contrast" d="M275 317 L288 304 L306 321 L330 292 L339 301 L306 339 Z"/>
+      <rect id="item-3-texto-1" class="primary" x="404" y="289" width="350" height="23" rx="11.5"/>
+      <rect id="item-3-texto-2" class="primary" x="404" y="328" width="271" height="18" rx="9"/>
+    </g>
+    <g id="item-4" transform="translate(0,378)">
+      <rect id="item-4-casilla" class="primary" x="259" y="273" width="90" height="90" rx="23"/>
+      <path id="item-4-verificado" class="contrast" d="M275 317 L288 304 L306 321 L330 292 L339 301 L306 339 Z"/>
+      <rect id="item-4-texto-1" class="primary" x="404" y="289" width="350" height="23" rx="11.5"/>
+      <rect id="item-4-texto-2" class="primary" x="404" y="328" width="271" height="18" rx="9"/>
+    </g>
+    <g id="item-5" transform="translate(0,504)">
+      <rect id="item-5-casilla" class="primary" x="259" y="273" width="90" height="90" rx="23"/>
+      <path id="item-5-verificado" class="contrast" d="M275 317 L288 304 L306 321 L330 292 L339 301 L306 339 Z"/>
+      <rect id="item-5-texto-1" class="primary" x="404" y="289" width="350" height="23" rx="11.5"/>
+      <rect id="item-5-texto-2" class="primary" x="404" y="328" width="271" height="18" rx="9"/>
+    </g>
+    </g>
+  </g>
+</svg>
